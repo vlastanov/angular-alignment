@@ -7,10 +7,11 @@ import {AppRoutingModule} from './app-routing.module';
 import { BroadLaneComponent } from './broad-lane/broad-lane.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuhilComponent } from './auhil/auhil.component';
+import { Test5Component } from './test5/test5.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule,AppRoutingModule, ReactiveFormsModule ],
-  declarations: [ AppComponent, BroadLaneComponent, AuhilComponent,   ],
+  declarations: [ AppComponent, BroadLaneComponent, AuhilComponent, Test5Component,   ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
