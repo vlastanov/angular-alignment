@@ -1,6 +1,9 @@
 ddddd
 
 <form [formGroup]="form"  (ngSubmit)="save()">
+
+   <label for='numberLanesId' >Ширина на платното</label>
+    <input id='numberLanesId' class="form-control"   type="text" formControlName="numberLanes">
   
   <label for='laneWidthId' >Ширина на платното</label>
     <input id='laneWidthId' class="form-control"   type="text" formControlName="laneWidth">
