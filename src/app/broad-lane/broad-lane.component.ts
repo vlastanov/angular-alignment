@@ -20,17 +20,19 @@ export class BroadLaneComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       numberLanes:'2',
-      laneWidth: "8",
+      laneWidth: "3.25",
       radiusPr: "150"
     });
   }
 
   save() {
     let input = {
+      numberLanes: this.form.get("numberLanes").value,
       laneWidth: this.form.get("laneWidth").value,
       radiusPr: this.form.get("radiusPr").value
     };
-    let calc = new Calculate(input.laneWidth, input.radiusPr);
+    let calc = new Calculate(input.numberLanes, input.laneWidth, input.radiusPr);
+    calc.method1()
   }
 }
 
@@ -38,12 +40,13 @@ class Calculate {
   
   needBroadening
 
-  constructor(private laneWidth: number, private radiusPr: number) {
+  constructor(private numberLanes: number, private laneWidth: number, private radiusPr: number) {
     this.checkLaneWidth();
     this.method1()
   }
   checkLaneWidth() {
-    if(this.laneWidth<=6){
+    let widthAllLanes=this.numberLanes*this.laneWidth
+    if(widthAllLanes<=6){
     this.needBroadening= this.radiusPr>=30 && this.radiusPr<=400
     }else{
     this.needBroadening= this.radiusPr>=30 && this.radiusPr<=200
@@ -51,8 +54,14 @@ class Calculate {
   }
   method1(){
     if(this.needBroadening){
-
+      let maxE=(50*this.numberLanes)/this.radiusPr
+      maxE=Math.round((maxE + Number.EPSILON) * 100) / 100
+      console.log(maxE)
     }
+    else{
+      console.log('няма нужда от уширение')
+    }
+    
   }
   method2(){
   }
