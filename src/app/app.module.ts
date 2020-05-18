@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import { BroadLaneComponent } from './broad-lane/broad-lane.component';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule ],
-  declarations: [ AppComponent ],
+  imports:      [ BrowserModule, FormsModule,AppRoutingModule ],
+  declarations: [ AppComponent, BroadLaneComponent,   ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
