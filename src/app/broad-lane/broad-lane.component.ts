@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  NgModel,
+  FormBuilder,
+  FormGroup,
+  AbstractControl,
+  Validators,
+  ValidatorFn
+} from "@angular/forms";
 
 @Component({
   selector: 'app-broad-lane',
@@ -7,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BroadLaneComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
   }
