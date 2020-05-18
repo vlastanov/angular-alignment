@@ -15,11 +15,12 @@ import {
 })
 export class BroadLaneComponent implements OnInit {
   form: FormGroup;
+  result
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.fb.group({
-      numberLanes:'2',
+      numberLanes: "2",
       laneWidth: "3.25",
       radiusPr: "150"
     });
@@ -31,38 +32,43 @@ export class BroadLaneComponent implements OnInit {
       laneWidth: this.form.get("laneWidth").value,
       radiusPr: this.form.get("radiusPr").value
     };
-    let calc = new Calculate(input.numberLanes, input.laneWidth, input.radiusPr);
-    calc.method1()
+    let calc = new Calculate(
+      input.numberLanes,
+      input.laneWidth,
+      input.radiusPr
+    );
+    this.result=calc.method1();
   }
 }
 
 class Calculate {
-  
-  needBroadening
+  needBroadening;
 
-  constructor(private numberLanes: number, private laneWidth: number, private radiusPr: number) {
-    this.checkLaneWidth();
-    this.method1()
-  }
-  checkLaneWidth() {
-    let widthAllLanes=this.numberLanes*this.laneWidth
-    if(widthAllLanes<=6){
-    this.needBroadening= this.radiusPr>=30 && this.radiusPr<=400
-    }else{
-    this.needBroadening= this.radiusPr>=30 && this.radiusPr<=200
+  constructor(
+    private numberLanes: number,
+    private laneWidth: number,
+    private radiusPr: number
+  ) {}
+
+  method1():string {
+
+    let widthAllLanes = this.numberLanes * this.laneWidth;
+    if (widthAllLanes <= 6) {
+      this.needBroadening = this.radiusPr >= 30 && this.radiusPr <= 400;
+    } else {
+      this.needBroadening = this.radiusPr >= 30 && this.radiusPr <= 200;
     }
-  }
-  method1(){
-    if(this.needBroadening){
-      let maxE=(50*this.numberLanes)/this.radiusPr
-      maxE=Math.round((maxE + Number.EPSILON) * 100) / 100
-      console.log(maxE)
+
+  let result=''
+    if (this.needBroadening) {
+      let maxE = (50 * this.numberLanes) / this.radiusPr;
+      maxE = Math.round((maxE + Number.EPSILON) * 100) / 100;
+      result=`Уширението е: ${maxE}`
+      console.log(maxE);
+    } else {
+      result="няма нужда от уширение";
     }
-    else{
-      console.log('няма нужда от уширение')
-    }
-    
-  }
-  method2(){
+    return result
   }
 }
+
