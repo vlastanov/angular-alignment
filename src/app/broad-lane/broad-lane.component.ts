@@ -19,6 +19,7 @@ export class BroadLaneComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
+      numberLanes:'2',
       laneWidth: "8",
       radiusPr: "150"
     });
@@ -34,20 +35,25 @@ export class BroadLaneComponent implements OnInit {
 }
 
 class Calculate {
+  
+  needBroadening
+
   constructor(private laneWidth: number, private radiusPr: number) {
     this.checkLaneWidth();
+    this.method1()
   }
   checkLaneWidth() {
     if(this.laneWidth<=6){
-      this.method1()
+    this.needBroadening= this.radiusPr>=30 && this.radiusPr<=400
     }else{
-      this.method2()
+    this.needBroadening= this.radiusPr>=30 && this.radiusPr<=200
     }
   }
   method1(){
+    if(this.needBroadening){
 
+    }
   }
   method2(){
-    
   }
 }
