@@ -26,7 +26,20 @@ export class BroadLaneComponent implements OnInit {
   }
 
   save(){
-    console.log(this.form.value)
+    let input={
+    laneWidth:this.form.get('laneWidth').value,
+    radiusPr:this.form.get('radiusPr').value
+
+    }
+    let calc=new Calculate(input.laneWidth,input.radiusPr)
   }
 
+}
+
+class Calculate{
+  constructor(private laneWidth:number,private radiusPr:number){
+    console.log(this.laneWidth)
+    console.log(this.radiusPr)
+    
+  }
 }
