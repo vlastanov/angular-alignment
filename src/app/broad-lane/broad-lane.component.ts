@@ -25,4 +25,8 @@ export class BroadLaneComponent implements OnInit {
     })
   }
 
+  save(){
+    console.log('tuk')
+  }
+
 }
