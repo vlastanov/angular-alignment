@@ -15,7 +15,7 @@ import {
 })
 export class BroadLaneComponent implements OnInit {
   form: FormGroup;
-  result
+  result=''
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
