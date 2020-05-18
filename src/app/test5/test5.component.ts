@@ -25,7 +25,9 @@ export class Test5Component implements OnInit {
       let reader = new FileReader();
       reader.onload = () => {
         var text = reader.result;
-        console.log(text)
+        let fullText = text.toString().replace(/(?:\r\n|\r|\n)/g, '')
+    let groups = fullText.match(/<table.*?table>/g)
+        console.log(groups.length)
       }
       reader.readAsText(input.files[index], "UTF-8");
     };
@@ -45,7 +47,7 @@ export class Test5Component implements OnInit {
     this.getCells()
     let [t, ...tablesGroup] = this.data
     let tables = tablesGroup[0].tables
-
+console.log(tables)
     let count = 0
     tables.forEach(table => {
       let name = table.title
