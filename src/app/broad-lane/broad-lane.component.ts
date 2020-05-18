@@ -62,8 +62,11 @@ class Calculate {
   let result=''
     if (this.needBroadening) {
       let maxE = (50 * this.numberLanes) / this.radiusPr;
+      if(maxE<=0.25){
+        return 'няма нужда от уширение, тъй като то е по-малко от 0.25 m'
+      }
       maxE = Math.round((maxE + Number.EPSILON) * 100) / 100;
-      result=`Уширението е: ${maxE}`
+      result=`Уширението е: ${maxE} m`
       console.log(maxE);
     } else {
       result="няма нужда от уширение";
