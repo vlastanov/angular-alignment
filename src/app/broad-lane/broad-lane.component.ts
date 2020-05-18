@@ -15,9 +15,13 @@ import {
 })
 export class BroadLaneComponent implements OnInit {
 
+  form: FormGroup
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.form=this.fb.group({
+      laneWidth:''
+    })
   }
 
 }
