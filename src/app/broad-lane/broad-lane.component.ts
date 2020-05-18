@@ -20,8 +20,8 @@ export class BroadLaneComponent implements OnInit {
 
   ngOnInit() {
     this.form=this.fb.group({
-      laneWidth:'',
-      radiusPr:'',
+      laneWidth: 8,
+      radiusPr:150,
     })
   }
 
