@@ -9,9 +9,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuhilComponent } from './auhil/auhil.component';
 import { Test5Component } from './test5/test5.component';
 import { TablicaComponent } from './tablica/tablica.component';
+import * as echarts from 'echarts';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule,AppRoutingModule, ReactiveFormsModule ],
+  imports:      [ BrowserModule,   NgxEchartsModule.forRoot({ echarts }),   FormsModule,AppRoutingModule, ReactiveFormsModule ],
   declarations: [ AppComponent, BroadLaneComponent, AuhilComponent, Test5Component, TablicaComponent,   ],
   bootstrap:    [ AppComponent ]
 })
