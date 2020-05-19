@@ -1,32 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { EChartOption } from 'echarts';
+import { Component, OnInit } from "@angular/core";
+import { EChartOption } from "echarts";
 
 @Component({
-  selector: 'app-tablica',
-  templateUrl: './tablica.component.html',
-  styleUrls: ['./tablica.component.css']
+  selector: "app-tablica",
+  templateUrl: "./tablica.component.html",
+  styleUrls: ["./tablica.component.css"]
 })
 export class TablicaComponent implements OnInit {
-
   chartOption: EChartOption = {
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  },
-  yAxis: {
-    type: 'value',
-  },
-  series: [
-    {
-      data: [820, 932, 901, 934, 1290, 1330, 1320],
-      type: 'line',
+    xAxis: {
+      type: "category",
+      data: [
+        "120",
+        "160",
+        "180",
+        "210",
+        "250",
+        "300",
+        "360",
+        "450",
+        "490",
+        "800"
+      ]
     },
-  ],
-};
+    yAxis: {
+      type: "value"
+    },
+    series: [
+      {
+        data: [7.0, 6.5, 6.0, 5.5, 5.0, 4.5, 4.0, 3.5, 3.0, 2.5],
+        type: "line"
+      }
+    ]
+  };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
