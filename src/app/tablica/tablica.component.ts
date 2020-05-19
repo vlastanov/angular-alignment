@@ -8,6 +8,9 @@ import { EChartOption } from "echarts";
 })
 export class TablicaComponent implements OnInit {
   chartOption: EChartOption = {
+    grid:{
+      show:true
+    },
     xAxis: {
       type: "category",
       data: [
