@@ -8,7 +8,7 @@ import {  FormBuilder,  FormGroup,} from "@angular/forms";
 })
 export class BroadLaneComponent implements OnInit {
   form: FormGroup;
-  result=''
+  broadening=''
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class BroadLaneComponent implements OnInit {
       input.laneWidth,
       input.radiusPr
     );
-    this.result=calc.method1();
+    this.broadening=calc.CalculateBroadening();
   }
 }
 
@@ -43,7 +43,7 @@ class Calculate {
     private radiusPr: number
   ) {}
 
-  method1():string {
+  CalculateBroadening():string {
 
     let widthAllLanes = this.numberLanes * this.laneWidth;
     if (widthAllLanes <= 6) {
