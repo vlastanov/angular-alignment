@@ -1,12 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  NgModel,
-  FormBuilder,
-  FormGroup,
-  AbstractControl,
-  Validators,
-  ValidatorFn
-} from "@angular/forms";
+import {  FormBuilder,  FormGroup,} from "@angular/forms";
 
 @Component({
   selector: "app-broad-lane",
