@@ -40,7 +40,6 @@ export class Test5Component implements OnInit {
     this.getCells()
     let [t, ...tablesGroup] = this.data
     let tables = tablesGroup[0].tables
-// console.log(tables)
     let count = 0
     tables.forEach(table => {
       let name = table.title
@@ -53,8 +52,9 @@ export class Test5Component implements OnInit {
           return row.cells
         })
         let length = cells[1]
-        let course = cells[3]
-        this.tangentEls.push(new TangentElement(count, name, length, course))
+        this.tangentEls.push(new TangentElement(count, name, length,
+       
+         ))
       }
       else if (name === 'Spiral Curve Data: clothoid') {
         count++;
@@ -65,18 +65,18 @@ export class Test5Component implements OnInit {
           return row.cells
         })
         let length = cells[1]
-        let course = cells[23]
         let radius = cells[5]
-        let chord = cells[21]
         let theta = cells[9]
-        let X = cells[13]
-        let Y = cells[17]
         let lTan = cells[3]
         let sTan = cells[7]
         let P = cells[11]
         let K = cells[15]
         let A = cells[19]
-        this.SpiralEls.push(new SpiralElement(count, name, length, course, radius, chord, theta, X, Y, lTan, sTan, P, K, A))
+        this.SpiralEls.push(new SpiralElement(count, name, length,
+        
+         radius,
+          theta,
+            lTan, sTan, P, K, A))
 
 
       }
@@ -89,17 +89,17 @@ export class Test5Component implements OnInit {
           return row.cells
         })
         let length = cells[7]
-        let course = cells[17]
         let radius = cells[5]
-        let chord = cells[15]
         let delta = cells[1]
-        let midOrd = cells[11]
         let type = cells[3]
         let tangent = cells[9]
         let external = cells[13]
         count++;
-        this.CircularEls.push(new CircularElement(count, name, length, course, radius, chord,
-          delta, midOrd, type, tangent, external))
+        this.CircularEls.push(new CircularElement(count, name, length,
+       
+          radius,
+          delta,
+            type, tangent, external))
 
       }
 
@@ -186,10 +186,6 @@ export class Test5Component implements OnInit {
 
   }
 
-  onSubmit() {
-
-  }
-
 }
 
 export interface IGeometricElement {
@@ -201,21 +197,21 @@ export class GeometricElement implements IGeometricElement {
 }
 export class TangentElement extends GeometricElement {
 
-  get course() {
-    let _course = this._course.replace('&deg;', '°')
-    return _course
-  }
-  set course(value) {
-  }
-  constructor(public count: number, public name: string, public length: string, protected _course: string) {
+  constructor(public count: number, public name: string, public length: string,
+  
+  ) {
     super(count, name)
   }
 }
 
 export class CurveElement extends TangentElement {
-  constructor(public count: number, public name: string, public length: string, public course: string,
-    public radius: string, public chord: string, ) {
-    super(count, name, length, course)
+  constructor(public count: number, public name: string, public length: string,
+  
+    public radius: string, 
+     ) {
+    super(count, name, length,
+   
+     )
   }
 }
 
@@ -228,10 +224,15 @@ export class CircularElement extends CurveElement {
   set delta(value) {
   }
 
-  constructor(public count: number, public name: string, public length: string, public course: string,
-    public radius: string, public chord: string,
-    private _delta: string, public midOrd: string, public type: string, public tangent: string, public external) {
-    super(count, name, length, course, radius, chord)
+  constructor(public count: number, public name: string, public length: string,
+  
+    public radius: string,
+    private _delta: string,
+      public type: string, public tangent: string, public external) {
+    super(count, name, length,
+   
+     radius,
+     )
   }
 }
 
@@ -244,9 +245,14 @@ export class SpiralElement extends CurveElement {
   }
 
 
-  constructor(public count: number, public name: string, public length: string, public course: string,
-    public radius: string, public chord: string,
-    private _theta: string, public x: string, public y: string, public lTan: string, public sTan: string, public P: string, public K: string, public A: string) {
-    super(count, name, length, course, radius, chord)
+  constructor(public count: number, public name: string, public length: string,
+  
+    public radius: string,
+    private _theta: string,
+      public lTan: string, public sTan: string, public P: string, public K: string, public A: string) {
+    super(count, name, length,
+   
+      radius,
+      )
   }
 }
