@@ -9,7 +9,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class Test5Component implements OnInit {
 
- form: FormGroup
   data: any[] = []
   regexTable = /<table.*?table>/mg;
   tangentEls = []
@@ -26,7 +25,7 @@ export class Test5Component implements OnInit {
     for (var index = 0; index < input.files.length; index++) {
       let reader = new FileReader();
       reader.onload = () => {
-        var text = reader.result;
+        let text = reader.result;
         this.str = text.toString().replace(/(?:\r\n|\r|\n)/g, '')
         this.ngOnInit()
       }
@@ -34,14 +33,7 @@ export class Test5Component implements OnInit {
     };
   }
 
-  get tableNumber() {
-    return this.form.get('tableNumber')
-  }
-
   ngOnInit(): void {
-    this.form = this.fb.group({
-      tableNumber: ''
-    })
     this.getGroupTables()
     this.getTables()
     this.getRows()
