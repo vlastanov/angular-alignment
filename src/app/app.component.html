@@ -3,17 +3,24 @@
 		<ul class="nav " routerLinkActive="active">
 			<li class="nav-item"><a class="nav-link" routerLink="./broadlane">Уширение</a></li>
 			<li class="nav-item"><a class="nav-link" routerLink="./test5">Test5</a></li>
-      <li>
+			<li>
 
-			   <a [routerLink]="[{ outlets: { 'sidebar': ['tablica'] } }]">Таблица</a>
-      </li>
-    
+				<a [routerLink]="[{ outlets: { 'sidebar': ['tablica'] } }]">Таблица</a>
+			</li>
+
 		</ul>
 	</div>
 </nav>
 
-<div style="border: 2px solid blue; padding: 1rem;">
-      <router-outlet name="sidebar"></router-outlet>
-    </div>
 
-<router-outlet></router-outlet>
+
+<div class="row">
+	<div class="col-md-6">
+		<router-outlet></router-outlet>
+	</div>
+	<div>
+		<div class="col-md-6" >
+			<router-outlet name="sidebar"></router-outlet>
+		</div>
+	</div>
+</div>
