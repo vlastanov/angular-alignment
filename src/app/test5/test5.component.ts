@@ -188,30 +188,18 @@ export class Test5Component implements OnInit {
 
 }
 
-export interface IGeometricElement {
-  name: string
-}
-
-export class GeometricElement implements IGeometricElement {
+export class GeometricElement {
   constructor(public count: number, public name: string) { }
 }
 export class TangentElement extends GeometricElement {
-
-  constructor(public count: number, public name: string, public length: string,
-  
-  ) {
+  constructor(public count: number, public name: string, public length: string,   ) {
     super(count, name)
   }
 }
 
 export class CurveElement extends TangentElement {
-  constructor(public count: number, public name: string, public length: string,
-  
-    public radius: string, 
-     ) {
-    super(count, name, length,
-   
-     )
+  constructor(public count: number, public name: string, public length: string, public radius: string,  ) {
+    super(count, name, length,  )
   }
 }
 
@@ -224,15 +212,8 @@ export class CircularElement extends CurveElement {
   set delta(value) {
   }
 
-  constructor(public count: number, public name: string, public length: string,
-  
-    public radius: string,
-    private _delta: string,
-      public type: string, public tangent: string, public external) {
-    super(count, name, length,
-   
-     radius,
-     )
+  constructor(public count: number, public name: string, public length: string, public radius: string, private _delta: string, public type: string, public tangent: string, public external) {
+    super(count, name, length,radius,)
   }
 }
 
@@ -244,15 +225,7 @@ export class SpiralElement extends CurveElement {
   set theta(value) {
   }
 
-
-  constructor(public count: number, public name: string, public length: string,
-  
-    public radius: string,
-    private _theta: string,
-      public lTan: string, public sTan: string, public P: string, public K: string, public A: string) {
-    super(count, name, length,
-   
-      radius,
-      )
+  constructor(public count: number, public name: string, public length: string,public radius: string,private _theta: string, public lTan: string, public sTan: string, public P: string, public K: string, public A: string) {
+    super(count, name, length,radius,)
   }
 }
