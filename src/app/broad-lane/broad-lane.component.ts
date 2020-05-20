@@ -55,6 +55,7 @@ class Calculate {
   let result=''
     if (this.needBroadening) {
       let maxE = (50 * this.numberLanes) / this.radiusPr;
+
       if(maxE<=0.25){
         return 'няма нужда от уширение, тъй като то е по-малко от 0.25 m'
       }
