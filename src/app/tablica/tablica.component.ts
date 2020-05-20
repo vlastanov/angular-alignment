@@ -8,8 +8,8 @@ import { EChartOption } from "echarts";
 })
 export class TablicaComponent {
   chartOption: EChartOption = {
-    grid:{
-      show:true
+    grid: {
+      show: true
     },
     xAxis: {
       type: "category",
@@ -36,5 +36,4 @@ export class TablicaComponent {
       }
     ]
   };
-
 }

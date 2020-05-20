@@ -16,6 +16,8 @@ export class Test5Component implements OnInit {
   CircularEls = []
   SpiralEls = []
 
+  str
+
   constructor(private fb: FormBuilder) { }
 
   
@@ -25,9 +27,8 @@ export class Test5Component implements OnInit {
       let reader = new FileReader();
       reader.onload = () => {
         var text = reader.result;
-        let fullText = text.toString().replace(/(?:\r\n|\r|\n)/g, '')
-    let groups = fullText.match(/<table.*?table>/g)
-        console.log(groups.length)
+        this.str = text.toString().replace(/(?:\r\n|\r|\n)/g, '')
+        this.ngOnInit()
       }
       reader.readAsText(input.files[index], "UTF-8");
     };
@@ -47,7 +48,7 @@ export class Test5Component implements OnInit {
     this.getCells()
     let [t, ...tablesGroup] = this.data
     let tables = tablesGroup[0].tables
-console.log(tables)
+// console.log(tables)
     let count = 0
     tables.forEach(table => {
       let name = table.title
@@ -115,7 +116,8 @@ console.log(tables)
   }
 
   getGroupTables() {
-    let fullText = str.replace(/(?:\r\n|\r|\n)/g, '')
+    
+    let fullText = this.str.replace(/(?:\r\n|\r|\n)/g, '')
     let groups = fullText.match(/<table.*?table>/g)
     groups.forEach(group => this.data.push({ text: group }))
   }

@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BroadLaneComponent } from './broad-lane/broad-lane.component';
-import { AuhilComponent } from './auhil/auhil.component';
 import { Test5Component } from './test5/test5.component';
 import { TablicaComponent } from './tablica/tablica.component';
 
@@ -15,7 +14,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   imports:      [ BrowserModule,   NgxEchartsModule.forRoot({ echarts }),   FormsModule,AppRoutingModule, ReactiveFormsModule ],
-  declarations: [ AppComponent, BroadLaneComponent, AuhilComponent, Test5Component, TablicaComponent,  ],
+  declarations: [ AppComponent, BroadLaneComponent, Test5Component, TablicaComponent,  ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
