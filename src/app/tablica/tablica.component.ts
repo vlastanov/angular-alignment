@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { EChartOption } from "echarts";
 
 @Component({
@@ -6,7 +6,7 @@ import { EChartOption } from "echarts";
   templateUrl: "./tablica.component.html",
   styleUrls: ["./tablica.component.css"]
 })
-export class TablicaComponent implements OnInit {
+export class TablicaComponent {
   chartOption: EChartOption = {
     grid:{
       show:true
@@ -37,7 +37,4 @@ export class TablicaComponent implements OnInit {
     ]
   };
 
-  constructor() {}
-
-  ngOnInit() {}
 }
