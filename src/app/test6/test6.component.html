@@ -1,0 +1,67 @@
+<h4>Station and Curve Report</h4>
+<input type='file' accept='text/plain' multiple (change)='openFile1($event)'>
+
+<h4 id="exampleDiv">Елементи на оста</h4>
+<table class="table  table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Дължина</th>
+            <th scope="col">Радиус</th>
+            <th scope="col">A</th>
+            <th scope="col">Начало</th>
+            <th scope="col">Край</th>
+            <th scope="col" > Начало Х</th>
+            <th scope="col" > Край Х</th>
+            <th scope="col" > Начало У</th>
+            <th scope="col" > Край Х</th>
+            <th scope="col" > Тангента</th>
+            <th scope="col" > Бета (g)</th>
+    </thead>
+    <tbody>
+        <tr *ngFor='let el of geometricElements'>
+            <th scope="row">{{el.count}}</th>
+            <td>{{el.name}}</td>
+            <td>{{el.length}}</td>
+            <td>{{el.radius}}</td>
+            <td>{{el.A}}</td>
+            <td>{{el.pointStart.station}}</td>
+            <td>{{el.pointEnd.station}}</td>
+            <td>{{el.pointStart.x}}</td>
+            <td>{{el.pointStart.y}}</td>
+            <td>{{el.pointEnd.x}}</td>
+            <td>{{el.pointEnd.y}}</td>
+            <td>{{el.tangent}}</td>
+            <td>{{el.delta}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>PI station Report</h4>
+<input type='file' accept='text/plain' multiple (change)='openFile2($event)'>
+
+<h4>КООРДИНАТИ НА ОПОРНИТЕ ЕЛЕМЕНТИ </h4>
+<table class="table  table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Опорна точка</th>
+            <th scope="col">Начало Х</th>
+            <th scope="col">Начало У</th>
+            <th scope="col">Край Х</th>
+            <th scope="col">Край У</th>
+            <th scope="col">Радиус</th>
+            <th scope="col">А</th>
+    </thead>
+    <tbody>
+        <tr *ngFor='let el of piElements'>
+            <th scope="row">{{el.count}}</th>
+            <td>{{el.station}}</td>
+            <td>{{el.startPoint.x}}</td>
+            <td>{{el.startPoint.y}}</td>
+            <td>{{el.endPoint.x}}</td>
+            <td>{{el.endPoint.y}}</td>
+        </tr>
+    </tbody>
+</table>
