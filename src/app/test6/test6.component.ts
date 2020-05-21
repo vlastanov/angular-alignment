@@ -110,7 +110,12 @@ const TEXT = `
 })
 export class Test6Component implements OnInit {
 
+  geometricElements = []
+  piElements = []
+  text
   constructor() { }
+  status: boolean = false;
+
 
   ngOnInit() {
   }
