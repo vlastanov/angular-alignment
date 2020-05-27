@@ -127,7 +127,7 @@ export class Test6Component implements OnInit {
     this.piElements = piStationReport.piElements;
   }
 
-  openFile1(event) {
+  stationAndCurve(event) {
     let fileList = event.target.files;
     let reader = new FileReader();
     reader.readAsText(fileList[0], "UTF-8");
@@ -137,7 +137,7 @@ export class Test6Component implements OnInit {
     };
   }
 
-  PIStationFile(event) {
+  piStationFile(event) {
     let fileList = event.target.files;
     let reader = new FileReader();
     reader.readAsText(fileList[0], "UTF-8");
@@ -146,15 +146,6 @@ export class Test6Component implements OnInit {
       let piStationReport = new PIStation(this.text);
       this.piElements = piStationReport.piElements;
     };
-
-    // let input = event.target;
-    // for (var index = 0; index < input.files.length; index++) {
-    //   let reader = new FileReader();
-    //   reader.onload = () => {
-    //     this.text = reader.result.toString();
-    //   };
-    //   reader.readAsText(input.files[index], "UTF-8");
-    // }
   }
 }
 
