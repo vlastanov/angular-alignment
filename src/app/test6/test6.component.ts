@@ -302,14 +302,14 @@ export class StationAndCurveReport {
 
     for (let i = 0; i < cells.length; i++) {
       let element = cells[i];
-
       if (element === "Tangent Data") {
         let item = cells.splice(i, 22);
+console.log(item)
 
         let name = "Права";
         let lenth = item[19];
-        let start = new PointElement(item[6], item[8], item[7]);
-        let end = new PointElement(item[10], item[12], item[11]);
+        let start = new PointElement(item[6], item[7], item[8]);
+        let end = new PointElement(item[10], item[11], item[12]);
         let tangent = new TangentElement(count, name, lenth, start, end);
         count++;
         i = -1;
@@ -320,8 +320,8 @@ export class StationAndCurveReport {
         let lenth = item[23];
         let theta = item[31];
         let A = item[41];
-        let pointStart = new PointElement(item[6], item[8], item[7]);
-        let pointEnd = new PointElement(item[14], item[16], item[15]);
+        let pointStart = new PointElement(item[6], item[7], item[8]);
+        let pointEnd = new PointElement(item[14], item[15], item[16]);
         let spiral = new SpiralElement(
           count,
           name,
@@ -340,8 +340,8 @@ export class StationAndCurveReport {
         let name = "Кр. крива";
         let lenth = item[29];
         let radius = item[27];
-        let pointStart = new PointElement(item[6], item[8], item[7]);
-        let pointEnd = new PointElement(item[14], item[16], item[15]);
+        let pointStart = new PointElement(item[6], item[7], item[8]);
+        let pointEnd = new PointElement(item[14], item[15], item[16]);
         let delta = item[23];
         let betaGradient = this.getBetaDegreetoGradient(delta);
         let tangent = item[31];
