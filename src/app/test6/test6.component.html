@@ -54,13 +54,14 @@
     </thead>
     <tbody>
         <tr *ngFor='let el of piElements; let i=index'>
-          <button class="button_transparent" (click)="delete(i)"> delete </button>
-            <th scope="row">{{el.count}}</th>
+           <th scope="row">{{el.count}}</th>
             <td>{{el.station}}</td>
             <td>{{el.startPoint.x}}</td>
             <td>{{el.startPoint.y}}</td>
             <td>{{el.endPoint.x}}</td>
             <td>{{el.endPoint.y}}</td>
+            <button class="button_transparent" (click)="delete(i)"> delete </button>
+           
         </tr>
     </tbody>
 </table>
