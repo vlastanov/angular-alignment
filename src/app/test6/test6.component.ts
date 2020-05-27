@@ -307,7 +307,7 @@ export class StationAndCurveReport {
         this.geometricElements.push(tangent);
       } else if (element === "Spiral Point Data") {
         let item = cells.splice(i, 46);
-        let name = "Преходна крива";
+        let name = "Пр. крива";
         let lenth = item[23];
         let theta = item[31];
         let A = item[41];
@@ -328,7 +328,7 @@ export class StationAndCurveReport {
       } else if (element === "Curve Point Data") {
         let item = cells.splice(i, 40);
 
-        let name = "Кръгова крива";
+        let name = "Кр. крива";
         let lenth = item[29];
         let radius = item[27];
         let pointStart = new PointElement(item[6], item[8], item[7]);
