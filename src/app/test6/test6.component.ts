@@ -285,6 +285,10 @@ export class StationAndCurveReport {
     });
   }
 
+  fromDeltaToBeta(delta) {
+    return 3;
+  }
+
   getModelsByTable() {
     let cells = _.concat(this.rows);
     cells = _.flatten(cells);
@@ -298,7 +302,7 @@ export class StationAndCurveReport {
         let item = cells.splice(i, 22);
 
         let name = "Права";
-        let lenth = item[18];
+        let lenth = item[19];
         let start = new PointElement(item[6], item[8], item[7]);
         let end = new PointElement(item[10], item[12], item[11]);
         let tangent = new TangentElement(count, name, lenth, start, end);
@@ -334,6 +338,8 @@ export class StationAndCurveReport {
         let pointStart = new PointElement(item[6], item[8], item[7]);
         let pointEnd = new PointElement(item[14], item[16], item[15]);
         let delta = item[23];
+        let beta: number = this.fromDeltaToBeta(delta);
+        console.log(beta)
         let tangent = item[31];
         let curve = new CircularElement(
           count,

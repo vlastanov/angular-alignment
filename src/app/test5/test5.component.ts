@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { str } from './htmlString'
 import { FormBuilder, FormGroup } from '@angular/forms';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-test5',
@@ -34,6 +35,12 @@ export class Test5Component implements OnInit {
   }
 
   ngOnInit(): void {
+
+    let angle=`05° 46' 57.8986"`
+    let a=angle.split(/[\s,°,',"]+/)
+    console.log(a)
+
+
     this.getGroupTables()
     this.getTables()
     this.getRows()
