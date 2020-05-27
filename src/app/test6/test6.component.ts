@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import * as _ from 'lodash'
+import { Component, OnInit } from "@angular/core";
+import * as _ from "lodash";
 
-//#region 
+//#region
 
 const TEXT = `
 
@@ -98,33 +98,29 @@ const TEXT = `
 </body>
 </html>
 
-`
+`;
 
 //#endregion
 
-
 @Component({
-  selector: 'app-test6',
-  templateUrl: './test6.component.html',
-  styleUrls: ['./test6.component.css']
+  selector: "app-test6",
+  templateUrl: "./test6.component.html",
+  styleUrls: ["./test6.component.css"]
 })
 export class Test6Component implements OnInit {
-
-  geometricElements = []
-  piElements = []
-  text
-  constructor() { }
+  geometricElements = [];
+  piElements = [];
+  text;
+  constructor() {}
   status: boolean = false;
 
-
   ngOnInit(): void {
+    let element = document.getElementById("exampleDiv");
+    element.className = "example-class";
 
-    let element = document.getElementById('exampleDiv')
-    element.className = 'example-class'
-
-    this.text = TEXT
-    let piStationReport = new PIstationReport(this.text)
-    this.piElements=piStationReport.piElements
+    this.text = TEXT;
+    let piStationReport = new PIstationReport(this.text);
+    this.piElements = piStationReport.piElements;
   }
 
   openFile1(event) {
@@ -132,247 +128,288 @@ export class Test6Component implements OnInit {
     for (var index = 0; index < input.files.length; index++) {
       let reader = new FileReader();
       reader.onload = () => {
-        let stationAndCurve = new StationAndCurveReport(<string>reader.result)
-        this.geometricElements = stationAndCurve.geometricElements
-      }
+        let stationAndCurve = new StationAndCurveReport(<string>reader.result);
+        this.geometricElements = stationAndCurve.geometricElements;
+      };
       reader.readAsText(input.files[index], "UTF-8");
-    };
+    }
   }
-  
 
   openFile2(event) {
     let input = event.target;
     for (var index = 0; index < input.files.length; index++) {
       let reader = new FileReader();
       reader.onload = () => {
-        this.text = reader.result.toString()
-      }
+        this.text = reader.result.toString();
+      };
       reader.readAsText(input.files[index], "UTF-8");
-    };
+    }
   }
-
 }
 
 export class PIstationReport {
-  points = []
-  piElements = []
-  titles
-  rows = []
+  points = [];
+  piElements = [];
+  titles;
+  rows = [];
 
   constructor(public text: string) {
-    this.getTable()
-    this.getModelsByTable()
-    this.getElements()
-    console.log(this.points)
+    this.getTable();
+    this.getModelsByTable();
+    this.getElements();
+    console.log(this.points);
   }
 
   getTable() {
-    let groups = this.text.replace(/(?:\r\n|\r|\n)/g, '').match(/<table.*?table>/g)
-    let tableText = groups[1]
+    let groups = this.text
+      .replace(/(?:\r\n|\r|\n)/g, "")
+      .match(/<table.*?table>/g);
+    let tableText = groups[1];
 
     // let tableText = TEXT
 
     //getRows
-    let rowsText = []
-    let result = tableText.match(/<tr.*?tr>/g)
-    result.forEach(row => rowsText.push(row))
-
+    let rowsText = [];
+    let result = tableText.match(/<tr.*?tr>/g);
+    result.forEach(row => rowsText.push(row));
 
     //getCells
     rowsText.forEach((row, k) => {
-      let cells = []
-      let result = row.match(/<td.*?td>|<th.*?th>/g)
+      let cells = [];
+      let result = row.match(/<td.*?td>|<th.*?th>/g);
       result.forEach(cell => {
-        cell = cell.replace(/<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g, '').trim()
-        return cells.push(cell)
-      })
-      this.rows.push(cells)
-    })
+        cell = cell
+          .replace(
+            /<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g,
+            ""
+          )
+          .trim();
+        return cells.push(cell);
+      });
+      this.rows.push(cells);
+    });
   }
 
   getModelsByTable() {
-
-    let titles = this.rows.splice(0, 1)
+    let titles = this.rows.splice(0, 1);
     this.titles = {
       station: titles[0],
       x: titles[1],
       y: titles[2],
       distance: titles[3]
-    }
+    };
 
-    let count = 1
+    let count = 1;
     for (let i = 0; i < this.rows.length - 1; i += 2) {
       const element1 = this.rows[i];
       const element2 = this.rows[i + 1];
-      let station = element1[0]
-      let x = element1[2]
-      let y = element1[1]
-      let distance = element2[3]
-      console.log(distance)
-      this.points.push(new Point(count, station, x, y, distance))
+      let station = element1[0];
+      let x = element1[2];
+      let y = element1[1];
+      let distance = element2[3];
+      console.log(distance);
+      this.points.push(new Point(count, station, x, y, distance));
       count++;
       // console.log(element1)
-
     }
-
   }
 
   getElements() {
-
-    let count=1;
-    for (let i = 0; i < this.points.length - 1; i ++) {
+    let count = 1;
+    for (let i = 0; i < this.points.length - 1; i++) {
       const first = this.points[i];
       const second = this.points[i + 1];
 
-      let piEl=new PIelement(count,first.station,first, second)
-      this.piElements.push(piEl)
+      let piEl = new PIelement(count, first.station, first, second);
+      this.piElements.push(piEl);
       count++;
       // console.log(element1)
-
     }
-
   }
-
 }
 
 export class PIelement {
-
-
-  constructor(public count, public station,public startPoint:Point, public endPoint:Point,) { }
+  constructor(
+    public count,
+    public station,
+    public startPoint: Point,
+    public endPoint: Point
+  ) {}
 }
 
 export class Point {
-  constructor(public count, public station, public x, public y, public distance) { }
+  constructor(
+    public count,
+    public station,
+    public x,
+    public y,
+    public distance
+  ) {}
 }
 
 export class StationAndCurveReport {
-  geometricElements = []
-  rows = []
+  geometricElements = [];
+  rows = [];
 
   constructor(public text: string) {
-    this.getTable()
-    this.getModelsByTable()
+    this.getTable();
+    this.getModelsByTable();
   }
 
   getTable() {
-    let groups = this.text.replace(/(?:\r\n|\r|\n)/g, '').match(/<table.*?table>/g)
-    let tableText = groups[1]
+    let groups = this.text
+      .replace(/(?:\r\n|\r|\n)/g, "")
+      .match(/<table.*?table>/g);
+    let tableText = groups[1];
     // let tableText = TEXT
 
     //getRows
-    let rowsText = []
-    let result = tableText.match(/<tr.*?tr>/g)
-    result.forEach(row => rowsText.push(row))
+    let rowsText = [];
+    let result = tableText.match(/<tr.*?tr>/g);
+    result.forEach(row => rowsText.push(row));
 
     //getCells
     rowsText.forEach((row, k) => {
-      let cells = []
-      let result = row.match(/<td.*?td>|<th.*?th>/g)
+      let cells = [];
+      let result = row.match(/<td.*?td>|<th.*?th>/g);
       result.forEach(cell => {
-        cell = cell.replace(/<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g, '').trim()
-        return cells.push(cell)
-      })
-      this.rows.push(cells)
-    })
+        cell = cell
+          .replace(
+            /<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g,
+            ""
+          )
+          .trim();
+        return cells.push(cell);
+      });
+      this.rows.push(cells);
+    });
   }
 
   getModelsByTable() {
+    let cells = _.concat(this.rows);
+    cells = _.flatten(cells);
 
-    let cells = _.concat(this.rows)
-    cells = _.flatten(cells)
-
-    let count = 1
-
+    let count = 1;
 
     for (let i = 0; i < cells.length; i++) {
       let element = cells[i];
 
-      if (element === 'Tangent Data') {
-        let item = cells.splice(i, 22)
+      if (element === "Tangent Data") {
+        let item = cells.splice(i, 22);
 
-        let name = 'Права';
-        let lenth = item[18]
-        let start = new PointElement(item[6], item[8], item[7])
-        let end = new PointElement(item[10], item[12], item[11])
-        let tangent = new TangentElement(count, name, lenth, start, end)
+        let name = "Права";
+        let lenth = item[18];
+        let start = new PointElement(item[6], item[8], item[7]);
+        let end = new PointElement(item[10], item[12], item[11]);
+        let tangent = new TangentElement(count, name, lenth, start, end);
         count++;
         i = -1;
-        this.geometricElements.push(tangent)
-      }
-      else if (element === "Spiral Point Data") {
-        let item = cells.splice(i, 46)
-        let name = 'Преходна крива';
-        let lenth = item[23]
-        let theta = item[31]
-        let A = item[41]
-        let pointStart = new PointElement(item[6], item[8], item[7])
-        let pointEnd = new PointElement(item[14], item[16], item[15])
-        let spiral = new SpiralElement(count, name, lenth, pointStart, pointEnd, theta, A)
+        this.geometricElements.push(tangent);
+      } else if (element === "Spiral Point Data") {
+        let item = cells.splice(i, 46);
+        let name = "Преходна крива";
+        let lenth = item[23];
+        let theta = item[31];
+        let A = item[41];
+        let pointStart = new PointElement(item[6], item[8], item[7]);
+        let pointEnd = new PointElement(item[14], item[16], item[15]);
+        let spiral = new SpiralElement(
+          count,
+          name,
+          lenth,
+          pointStart,
+          pointEnd,
+          theta,
+          A
+        );
         count++;
         i = -1;
-        this.geometricElements.push(spiral)
-      }
-      else if (element === 'Curve Point Data') {
-        let item = cells.splice(i, 40)
+        this.geometricElements.push(spiral);
+      } else if (element === "Curve Point Data") {
+        let item = cells.splice(i, 40);
 
-        let name = 'Кръгова крива';
-        let lenth = item[29]
-        let radius = item[27]
-        let pointStart = new PointElement(item[6], item[8], item[7])
-        let pointEnd = new PointElement(item[14], item[16], item[15])
-        let delta = item[23]
-        let tangent = item[31]
-        let curve = new CircularElement(count, name, lenth, radius, pointStart, pointEnd, delta, tangent)
+        let name = "Кръгова крива";
+        let lenth = item[29];
+        let radius = item[27];
+        let pointStart = new PointElement(item[6], item[8], item[7]);
+        let pointEnd = new PointElement(item[14], item[16], item[15]);
+        let delta = item[23];
+        let tangent = item[31];
+        let curve = new CircularElement(
+          count,
+          name,
+          lenth,
+          radius,
+          pointStart,
+          pointEnd,
+          delta,
+          tangent
+        );
         count++;
         i = -1;
-        this.geometricElements.push(curve)
+        this.geometricElements.push(curve);
       }
-
     }
-
   }
 }
 
 export class PointElement {
-  constructor(public station, public x: string, public y: string) { }
+  constructor(public station, public x: string, public y: string) {}
 }
 
 export interface IGeometricElement {
-  count: number
-  name: string
-  length: string
-  pointStart: PointElement
-  pointEnd: PointElement
+  count: number;
+  name: string;
+  length: string;
+  pointStart: PointElement;
+  pointEnd: PointElement;
 }
 export class TangentElement implements IGeometricElement {
-  constructor(public count: number, public name: string, public length: string,
-    public pointStart: PointElement, public pointEnd: PointElement) { }
+  constructor(
+    public count: number,
+    public name: string,
+    public length: string,
+    public pointStart: PointElement,
+    public pointEnd: PointElement
+  ) {}
 }
 
 export class CircularElement extends TangentElement {
-
   get delta() {
-    let delta = this._delta.replace('&deg;', '°')
-    return delta
+    let delta = this._delta.replace("&deg;", "°");
+    return delta;
   }
-  set delta(value) {
-  }
+  set delta(value) {}
 
-  constructor(public count: number, public name: string, public length: string, public radius: string, public pointStart: PointElement, public pointEnd: PointElement
-    , private _delta: string, public tangent: string, ) {
-    super(count, name, length, pointStart, pointEnd)
+  constructor(
+    public count: number,
+    public name: string,
+    public length: string,
+    public radius: string,
+    public pointStart: PointElement,
+    public pointEnd: PointElement,
+    private _delta: string,
+    public tangent: string
+  ) {
+    super(count, name, length, pointStart, pointEnd);
   }
 }
 
 export class SpiralElement extends TangentElement {
   get theta() {
-    let theta = this._theta.replace('&deg;', '°')
-    return theta
+    let theta = this._theta.replace("&deg;", "°");
+    return theta;
   }
-  set theta(value) {
-  }
-  constructor(public count: number, public name: string, public length: string, public pointStart: PointElement, public pointEnd: PointElement,
-    private _theta: string, public A: string) {
-    super(count, name, length, pointStart, pointEnd)
+  set theta(value) {}
+  constructor(
+    public count: number,
+    public name: string,
+    public length: string,
+    public pointStart: PointElement,
+    public pointEnd: PointElement,
+    private _theta: string,
+    public A: string
+  ) {
+    super(count, name, length, pointStart, pointEnd);
   }
 }
