@@ -285,8 +285,13 @@ export class StationAndCurveReport {
     });
   }
 
-  fromDeltaToBeta(delta) {
-    return 3;
+  getBetaDegreetoGradient(deltaDegree:string){
+     let arr=deltaDegree.split(/[\s,&deg;,',"]+/)
+    let noEmptyStringArray=_.compact(arr);
+    let [degree, minute, second]=[...noEmptyStringArray]
+    let deltaGradient=((+degree + +minute/60 + +second/3600)/180 )*200 
+    deltaGradient= Math.round((deltaGradient + Number.EPSILON) * 10000) / 10000
+    return 200 - deltaGradient
   }
 
   getModelsByTable() {
@@ -338,8 +343,9 @@ export class StationAndCurveReport {
         let pointStart = new PointElement(item[6], item[8], item[7]);
         let pointEnd = new PointElement(item[14], item[16], item[15]);
         let delta = item[23];
-        let beta: number = this.fromDeltaToBeta(delta);
-        console.log(beta)
+        let betaGradient = this.getBetaDegreetoGradient(delta);
+        console.log(delta);
+        // let beta: number = this.fromDeltaToBeta(delta);
         let tangent = item[31];
         let curve = new CircularElement(
           count,
@@ -348,7 +354,7 @@ export class StationAndCurveReport {
           radius,
           pointStart,
           pointEnd,
-          delta,
+          betaGradient,
           tangent
         );
         count++;
@@ -381,11 +387,11 @@ export class TangentElement implements IGeometricElement {
 }
 
 export class CircularElement extends TangentElement {
-  get delta() {
-    let delta = this._delta.replace("&deg;", "°");
-    return delta;
-  }
-  set delta(value) {}
+  // get delta() {
+  //   let delta = this._delta.replace("&deg;", "°");
+  //   return delta;
+  // }
+  // set delta(value) {}
 
   constructor(
     public count: number,
@@ -394,7 +400,8 @@ export class CircularElement extends TangentElement {
     public radius: string,
     public pointStart: PointElement,
     public pointEnd: PointElement,
-    private _delta: string,
+    // private _delta: string,
+    private delta: number,
     public tangent: string
   ) {
     super(count, name, length, pointStart, pointEnd);

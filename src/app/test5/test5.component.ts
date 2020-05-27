@@ -19,7 +19,6 @@ export class Test5Component implements OnInit {
   str
 
   constructor(private fb: FormBuilder) { }
-
   
   openFile(event) {
     let input = event.target;
@@ -34,16 +33,20 @@ export class Test5Component implements OnInit {
     };
   }
 
+  getBetaDegreetoGradient(deltaDegree:string){
+     let arr=deltaDegree.split(/[\s,&deg;,',"]+/)
+    let noEmptyStringArray=_.compact(arr);
+    let [degree, minute, second]=[...noEmptyStringArray]
+    let deltaGradient=((+degree + +minute/60 + +second/3600)/180 )*200 
+    deltaGradient= Math.round((deltaGradient + Number.EPSILON) * 10000) / 10000
+    return 200 - deltaGradient
+  }
+
   ngOnInit(): void {
 
-    let angle=`05° 46' 57.8986"`
-    let a=angle.split(/[\s,°,',"]+/)
-    let res=_.compact(a);
-    let [degree, minute, second]=[...res]
-    
-    console.log(degree)
-    console.log(minute)
-    console.log(second)
+    let deltaDegree=`24&deg; 36' 11.3789`
+    let betaGradient=this.getBetaDegreetoGradient(deltaDegree)
+   console.log(betaGradient)
 
 
     this.getGroupTables()
