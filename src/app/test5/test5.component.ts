@@ -38,7 +38,12 @@ export class Test5Component implements OnInit {
 
     let angle=`05° 46' 57.8986"`
     let a=angle.split(/[\s,°,',"]+/)
-    console.log(a)
+    let res=_.compact(a);
+    let [degree, minute, second]=[...res]
+    
+    console.log(degree)
+    console.log(minute)
+    console.log(second)
 
 
     this.getGroupTables()
