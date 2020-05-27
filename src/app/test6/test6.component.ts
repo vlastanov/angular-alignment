@@ -112,7 +112,7 @@ export class Test6Component implements OnInit {
   piElements = [];
   text;
   constructor() {}
-  status: boolean = false;
+  // status: boolean = false;
 
   delete(i) {
     this.piElements.splice(i, 1);
@@ -138,14 +138,22 @@ export class Test6Component implements OnInit {
   }
 
   openFile2(event) {
-    let input = event.target;
-    for (var index = 0; index < input.files.length; index++) {
+      let fileList = event.target.files;
       let reader = new FileReader();
+      reader.readAsText(fileList[0], "UTF-8");
       reader.onload = () => {
-        this.text = reader.result.toString();
+         this.text = reader.result.toString();
       };
-      reader.readAsText(input.files[index], "UTF-8");
-    }
+
+
+    // let input = event.target;
+    // for (var index = 0; index < input.files.length; index++) {
+    //   let reader = new FileReader();
+    //   reader.onload = () => {
+    //     this.text = reader.result.toString();
+    //   };
+    //   reader.readAsText(input.files[index], "UTF-8");
+    // }
   }
 }
 
