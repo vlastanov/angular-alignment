@@ -114,8 +114,8 @@ export class Test6Component implements OnInit {
   constructor() {}
   status: boolean = false;
 
-  delete(i){
-    this.piElements.splice(i,1);
+  delete(i) {
+    this.piElements.splice(i, 1);
   }
 
   ngOnInit(): void {
@@ -128,15 +128,13 @@ export class Test6Component implements OnInit {
   }
 
   openFile1(event) {
-    let input = event.target;
-    for (var index = 0; index < input.files.length; index++) {
-      let reader = new FileReader();
-      reader.onload = () => {
-        let stationAndCurve = new StationAndCurveReport(<string>reader.result);
-        this.geometricElements = stationAndCurve.geometricElements;
-      };
-      reader.readAsText(input.files[index], "UTF-8");
-    }
+    let fileList = event.target.files;
+    let reader = new FileReader();
+    reader.readAsText(fileList[0], "UTF-8");
+    reader.onload = () => {
+      let stationAndCurve = new StationAndCurveReport(<string>reader.result);
+      this.geometricElements = stationAndCurve.geometricElements;
+    };
   }
 
   openFile2(event) {
@@ -289,40 +287,36 @@ export class StationAndCurveReport {
     });
   }
 
-  getBetaDegreetoGradient(deltaDegree:string){
-     let arr=deltaDegree.split(/[\s,&deg;,',"]+/)
-    let noEmptyStringArray=_.compact(arr);
-    let [degree, minute, second]=[...noEmptyStringArray]
-    let deltaGradient=((+degree + +minute/60 + +second/3600)/180 )*200 
-    deltaGradient= Math.round((deltaGradient + Number.EPSILON) * 10000) / 10000
-    return 200 - deltaGradient
+  getBetaDegreetoGradient(deltaDegree: string) {
+    let arr = deltaDegree.split(/[\s,&deg;,',"]+/);
+    let noEmptyStringArray = _.compact(arr);
+    let [degree, minute, second] = [...noEmptyStringArray];
+    let deltaGradient = ((+degree + +minute / 60 + +second / 3600) / 180) * 200;
+    deltaGradient =
+      Math.round((deltaGradient + Number.EPSILON) * 10000) / 10000;
+    return 200 - deltaGradient;
   }
 
-    
-  
+  formatStation(input: string): string {
+    let station = input.split(/[\+]+/);
+    let [first, second] = [...station];
+    let newStation = +first * 100 + +second;
 
-  formatStation(input:string):string{
-    let station= input.split(/[\+]+/);
-        let [first, second]=[...station]
-        let newStation= +first*100 + +second
-
-        let res=''
-        if(newStation === 0){
-          res=`0+000.00`
-        }else if(newStation<100){
-          res=`0+0${newStation}`
-        }
-        else if(newStation<1000){
-          res=`0+${newStation}`
-        }        
-        else{
-          let one=newStation/1000
-          let two=Math.round(one)
-          let three=(one-two)*1000 
-          three= Math.round((three + Number.EPSILON) * 10000) / 10000
-          res=`${two}+${three}`
-        }
-        return res
+    let res = "";
+    if (newStation === 0) {
+      res = `0+000.00`;
+    } else if (newStation < 100) {
+      res = `0+0${newStation}`;
+    } else if (newStation < 1000) {
+      res = `0+${newStation}`;
+    } else {
+      let one = newStation / 1000;
+      let two = Math.round(one);
+      let three = (one - two) * 1000;
+      three = Math.round((three + Number.EPSILON) * 10000) / 10000;
+      res = `${two}+${three}`;
+    }
+    return res;
   }
 
   getModelsByTable() {
@@ -337,9 +331,9 @@ export class StationAndCurveReport {
         let item = cells.splice(i, 22);
         let name = "Права";
         let lenth = item[19];
-        let stationStart=this.formatStation(item[6])
+        let stationStart = this.formatStation(item[6]);
         let start = new PointElement(stationStart, item[7], item[8]);
-        let stationEnd=this.formatStation(item[10])
+        let stationEnd = this.formatStation(item[10]);
         let end = new PointElement(stationEnd, item[11], item[12]);
         let tangent = new TangentElement(count, name, lenth, start, end);
         count++;
@@ -351,9 +345,9 @@ export class StationAndCurveReport {
         let lenth = item[23];
         let theta = item[31];
         let A = item[41];
-        let stationStart=this.formatStation(item[6])
+        let stationStart = this.formatStation(item[6]);
         let pointStart = new PointElement(stationStart, item[7], item[8]);
-        let stationEnd=this.formatStation(item[14])
+        let stationEnd = this.formatStation(item[14]);
         let pointEnd = new PointElement(stationEnd, item[15], item[16]);
         let spiral = new SpiralElement(
           count,
@@ -373,9 +367,9 @@ export class StationAndCurveReport {
         let name = "Кр. крива";
         let lenth = item[29];
         let radius = item[27];
-        let stationStart=this.formatStation(item[6])
+        let stationStart = this.formatStation(item[6]);
         let pointStart = new PointElement(stationStart, item[7], item[8]);
-        let stationEnd=this.formatStation(item[14])
+        let stationEnd = this.formatStation(item[14]);
         let pointEnd = new PointElement(stationEnd, item[15], item[16]);
         let delta = item[23];
         let betaGradient = this.getBetaDegreetoGradient(delta);
@@ -401,7 +395,7 @@ export class StationAndCurveReport {
 export class PointElement {
   constructor(public station, public x: string, public y: string) {}
 }
-export class TangentElement  {
+export class TangentElement {
   constructor(
     public count: number,
     public name: string,
@@ -412,7 +406,6 @@ export class TangentElement  {
 }
 
 export class CircularElement extends TangentElement {
-
   constructor(
     public count: number,
     public name: string,
