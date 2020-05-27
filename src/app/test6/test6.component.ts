@@ -123,7 +123,7 @@ export class Test6Component implements OnInit {
     element.className = "example-class";
 
     this.text = TEXT;
-    let piStationReport = new PIstationReport(this.text);
+    let piStationReport = new PIStation(this.text);
     this.piElements = piStationReport.piElements;
   }
 
@@ -137,14 +137,15 @@ export class Test6Component implements OnInit {
     };
   }
 
-  openFile2(event) {
-      let fileList = event.target.files;
-      let reader = new FileReader();
-      reader.readAsText(fileList[0], "UTF-8");
-      reader.onload = () => {
-         this.text = reader.result.toString();
-      };
-
+  PIStationFile(event) {
+    let fileList = event.target.files;
+    let reader = new FileReader();
+    reader.readAsText(fileList[0], "UTF-8");
+    reader.onload = () => {
+      this.text = reader.result.toString();
+      let piStationReport = new PIStation(this.text);
+      this.piElements = piStationReport.piElements;
+    };
 
     // let input = event.target;
     // for (var index = 0; index < input.files.length; index++) {
@@ -157,7 +158,7 @@ export class Test6Component implements OnInit {
   }
 }
 
-export class PIstationReport {
+export class PIStation {
   points = [];
   piElements = [];
   titles;
