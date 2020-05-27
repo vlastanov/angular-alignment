@@ -41,7 +41,7 @@
 <h4>PI station Report</h4>
 <input type='file' accept='text/plain' multiple (change)='openFile2($event)'>
 
-<h4>КООРДИНАТИ НА ОПОРНИТЕ ЕЛЕМЕНТИ </h4>
+<h4>Опорен полигон </h4>
 <table class="table  table-hover table-bordered">
     <thead>
         <tr>
@@ -51,8 +51,6 @@
             <th scope="col">Начало У</th>
             <th scope="col">Край Х</th>
             <th scope="col">Край У</th>
-            <th scope="col">Радиус</th>
-            <th scope="col">А</th>
     </thead>
     <tbody>
         <tr *ngFor='let el of piElements'>
