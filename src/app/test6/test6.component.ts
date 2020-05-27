@@ -344,8 +344,6 @@ export class StationAndCurveReport {
         let pointEnd = new PointElement(item[14], item[16], item[15]);
         let delta = item[23];
         let betaGradient = this.getBetaDegreetoGradient(delta);
-        console.log(delta);
-        // let beta: number = this.fromDeltaToBeta(delta);
         let tangent = item[31];
         let curve = new CircularElement(
           count,
@@ -368,15 +366,7 @@ export class StationAndCurveReport {
 export class PointElement {
   constructor(public station, public x: string, public y: string) {}
 }
-
-export interface IGeometricElement {
-  count: number;
-  name: string;
-  length: string;
-  pointStart: PointElement;
-  pointEnd: PointElement;
-}
-export class TangentElement implements IGeometricElement {
+export class TangentElement  {
   constructor(
     public count: number,
     public name: string,
@@ -387,11 +377,6 @@ export class TangentElement implements IGeometricElement {
 }
 
 export class CircularElement extends TangentElement {
-  // get delta() {
-  //   let delta = this._delta.replace("&deg;", "°");
-  //   return delta;
-  // }
-  // set delta(value) {}
 
   constructor(
     public count: number,
@@ -400,8 +385,7 @@ export class CircularElement extends TangentElement {
     public radius: string,
     public pointStart: PointElement,
     public pointEnd: PointElement,
-    // private _delta: string,
-    private delta: number,
+    private beta: number,
     public tangent: string
   ) {
     super(count, name, length, pointStart, pointEnd);
