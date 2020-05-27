@@ -114,6 +114,10 @@ export class Test6Component implements OnInit {
   constructor() {}
   status: boolean = false;
 
+  delete(i){
+    this.piElements.splice(i,1);
+  }
+
   ngOnInit(): void {
     let element = document.getElementById("exampleDiv");
     element.className = "example-class";
@@ -293,6 +297,9 @@ export class StationAndCurveReport {
     deltaGradient= Math.round((deltaGradient + Number.EPSILON) * 10000) / 10000
     return 200 - deltaGradient
   }
+
+    
+  
 
   formatStation(input:string):string{
     let station= input.split(/[\+]+/);

@@ -53,7 +53,8 @@
             <th scope="col">Край У</th>
     </thead>
     <tbody>
-        <tr *ngFor='let el of piElements'>
+        <tr *ngFor='let el of piElements; let i=index'>
+          <button class="button_transparent" (click)="delete(i)"> delete </button>
             <th scope="row">{{el.count}}</th>
             <td>{{el.station}}</td>
             <td>{{el.startPoint.x}}</td>
