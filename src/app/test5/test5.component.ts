@@ -33,20 +33,27 @@ export class Test5Component implements OnInit {
     };
   }
 
-  getBetaDegreetoGradient(deltaDegree:string){
-     let arr=deltaDegree.split(/[\s,&deg;,',"]+/)
-    let noEmptyStringArray=_.compact(arr);
-    let [degree, minute, second]=[...noEmptyStringArray]
-    let deltaGradient=((+degree + +minute/60 + +second/3600)/180 )*200 
-    deltaGradient= Math.round((deltaGradient + Number.EPSILON) * 10000) / 10000
-    return 200 - deltaGradient
+  formatStation(input:string):string{
+    let station= input.split(/[\+]+/);
+        let [first, second]=[...station]
+        let newStation= +first*100 + +second
+
+        let res=''
+        if(newStation<1000){
+          res=`0+${newStation}`
+        }else{
+          let one=newStation/1000
+          let two=Math.round(one)
+          let three=(one-two)*1000 
+          three= Math.round((three + Number.EPSILON) * 10000) / 10000
+          res=`${two}+${three}`
+        }
+        return res
   }
 
   ngOnInit(): void {
-
-    let deltaDegree=`24&deg; 36' 11.3789`
-    let betaGradient=this.getBetaDegreetoGradient(deltaDegree)
-   console.log(betaGradient)
+    let res=this.formatStation(`+43.618`)
+    console.log(res)
 
 
     this.getGroupTables()
