@@ -110,7 +110,7 @@ const TEXT = `
 export class Test6Component implements OnInit {
   geometricElements = [];
   piElements = [];
-  text;
+  
   constructor() {}
   // status: boolean = false;
 
@@ -119,11 +119,10 @@ export class Test6Component implements OnInit {
   }
 
   ngOnInit(): void {
-    let element = document.getElementById("exampleDiv");
-    element.className = "example-class";
+    // let element = document.getElementById("exampleDiv");
+    // element.className = "example-class";
 
-    this.text = TEXT;
-    let piStationReport = new PIStation(this.text);
+    let piStationReport = new PIStation(TEXT);
     this.piElements = piStationReport.piElements;
   }
 
@@ -142,8 +141,7 @@ export class Test6Component implements OnInit {
     let reader = new FileReader();
     reader.readAsText(fileList[0], "UTF-8");
     reader.onload = () => {
-      this.text = reader.result.toString();
-      let piStationReport = new PIStation(this.text);
+      let piStationReport = new PIStation(reader.result.toString());
       this.piElements = piStationReport.piElements;
     };
   }
