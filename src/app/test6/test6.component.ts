@@ -294,6 +294,30 @@ export class StationAndCurveReport {
     return 200 - deltaGradient
   }
 
+  formatStation(input:string):string{
+    let station= input.split(/[\+]+/);
+        let [first, second]=[...station]
+        let newStation= +first*100 + +second
+
+        let res=''
+        if(newStation === 0){
+          res=`0+000.00`
+        }else if(newStation<100){
+          res=`0+0${newStation}`
+        }
+        else if(newStation<1000){
+          res=`0+${newStation}`
+        }        
+        else{
+          let one=newStation/1000
+          let two=Math.round(one)
+          let three=(one-two)*1000 
+          three= Math.round((three + Number.EPSILON) * 10000) / 10000
+          res=`${two}+${three}`
+        }
+        return res
+  }
+
   getModelsByTable() {
     let cells = _.concat(this.rows);
     cells = _.flatten(cells);
@@ -304,12 +328,12 @@ export class StationAndCurveReport {
       let element = cells[i];
       if (element === "Tangent Data") {
         let item = cells.splice(i, 22);
-console.log(item)
-
         let name = "Права";
         let lenth = item[19];
-        let start = new PointElement(item[6], item[7], item[8]);
-        let end = new PointElement(item[10], item[11], item[12]);
+        let stationStart=this.formatStation(item[6])
+        let start = new PointElement(stationStart, item[7], item[8]);
+        let stationEnd=this.formatStation(item[10])
+        let end = new PointElement(stationEnd, item[11], item[12]);
         let tangent = new TangentElement(count, name, lenth, start, end);
         count++;
         i = -1;
@@ -320,8 +344,10 @@ console.log(item)
         let lenth = item[23];
         let theta = item[31];
         let A = item[41];
-        let pointStart = new PointElement(item[6], item[7], item[8]);
-        let pointEnd = new PointElement(item[14], item[15], item[16]);
+        let stationStart=this.formatStation(item[6])
+        let pointStart = new PointElement(stationStart, item[7], item[8]);
+        let stationEnd=this.formatStation(item[14])
+        let pointEnd = new PointElement(stationEnd, item[15], item[16]);
         let spiral = new SpiralElement(
           count,
           name,
@@ -340,8 +366,10 @@ console.log(item)
         let name = "Кр. крива";
         let lenth = item[29];
         let radius = item[27];
-        let pointStart = new PointElement(item[6], item[7], item[8]);
-        let pointEnd = new PointElement(item[14], item[15], item[16]);
+        let stationStart=this.formatStation(item[6])
+        let pointStart = new PointElement(stationStart, item[7], item[8]);
+        let stationEnd=this.formatStation(item[14])
+        let pointEnd = new PointElement(stationEnd, item[15], item[16]);
         let delta = item[23];
         let betaGradient = this.getBetaDegreetoGradient(delta);
         let tangent = item[31];
