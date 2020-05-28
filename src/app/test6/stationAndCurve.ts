@@ -3,6 +3,8 @@ import * as _ from "lodash";
 export class StationAndCurveReport {
   geometricElements = [];
   rows = [];
+  rows2:Row[] = [];
+  header
 
   constructor(public text: string) {
     this.getTable();
@@ -10,11 +12,17 @@ export class StationAndCurveReport {
   }
 
   getTable() {
-    let groups = this.text
+    let tableText = this.text
       .replace(/(?:\r\n|\r|\n)/g, "")
-      .match(/<table.*?table>/g);
-    let tableText = groups[1];
-    // let tableText = TEXT
+      .match(/<table.*?table>/g)[1];
+      
+      
+    //getRows
+    let [heading, ...body] = tableText.match(/<tr.*?tr>/g);
+    this.header = new Row(heading);
+
+    body.forEach(row => this.rows2.push(new Row(row)));
+    // console.log(this.rows2)
 
     //getRows
     let rowsText = [];
@@ -102,29 +110,28 @@ export class StationAndCurveReport {
     this.geometricElements.push(spiral);
   }
 
-  processCurveData(item,count){
-        let name = "Кр. крива";
-        let lenth = item[29];
-        let radius = item[27];
-        let stationStart = this.formatStation(item[6]);
-        let pointStart = new PointElement(stationStart, item[7], item[8]);
-        let stationEnd = this.formatStation(item[14]);
-        let pointEnd = new PointElement(stationEnd, item[15], item[16]);
-        let delta = item[23];
-        let betaGradient = this.getBetaDegreetoGradient(delta);
-        let tangent = item[31];
-        let curve = new CircularElement(
-          count,
-          name,
-          lenth,
-          radius,
-          pointStart,
-          pointEnd,
-          betaGradient,
-          tangent
-        );
-        this.geometricElements.push(curve);
-
+  processCurveData(item, count) {
+    let name = "Кр. крива";
+    let lenth = item[29];
+    let radius = item[27];
+    let stationStart = this.formatStation(item[6]);
+    let pointStart = new PointElement(stationStart, item[7], item[8]);
+    let stationEnd = this.formatStation(item[14]);
+    let pointEnd = new PointElement(stationEnd, item[15], item[16]);
+    let delta = item[23];
+    let betaGradient = this.getBetaDegreetoGradient(delta);
+    let tangent = item[31];
+    let curve = new CircularElement(
+      count,
+      name,
+      lenth,
+      radius,
+      pointStart,
+      pointEnd,
+      betaGradient,
+      tangent
+    );
+    this.geometricElements.push(curve);
   }
 
   getModelsByTable() {
@@ -148,12 +155,32 @@ export class StationAndCurveReport {
       } else if (element === "Curve Point Data") {
         let item = cells.splice(i, 40);
         i = -1;
-        this.processCurveData(item,count)
+        this.processCurveData(item, count);
         count++;
       }
     }
   }
 }
+
+export class Row {
+  pvi;
+  station;
+  elevation;
+  gradeOut;
+  constructor(rowText: string) {
+    [this.pvi, this.station, this.elevation, this.gradeOut] = rowText
+      .match(/<td.*?td>|<th.*?th>/g)
+      .map(cell => {
+        return cell
+          .replace(
+            /<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g,
+            ""
+          )
+          .trim();
+      });
+  }
+}
+
 
 export class PointElement {
   constructor(public station, public x: string, public y: string) {}

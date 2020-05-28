@@ -10,7 +10,6 @@ export class PIStation {
     this.getTable();
     this.getModelsByTable();
     this.getElements();
-    console.log(this.points);
   }
 
   getTable() {
@@ -60,7 +59,6 @@ export class PIStation {
       let x = element1[2];
       let y = element1[1];
       let distance = element2[3];
-      console.log(distance);
       this.points.push(new Point(count, station, x, y, distance));
       count++;
       // console.log(element1)

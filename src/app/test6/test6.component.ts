@@ -2669,7 +2669,6 @@ export class Test6Component implements OnInit {
     let reader = new FileReader();
     reader.readAsText(fileList[0], "UTF-8");
     reader.onload = () => {
-      console.log(reader.result);
       let stationAndCurve = new StationAndCurveReport(<string>reader.result);
       this.geometricElements = stationAndCurve.geometricElements;
     };
