@@ -1,8 +1,7 @@
 export class PIStation {
   points: Point[] = [];
-  piElements = [];
   rows: Row[] = [];
-  header;
+  piElements = [];
   constructor(public text: string) {
     this.getTable();
     this.getModelsByTable();
