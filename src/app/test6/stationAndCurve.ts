@@ -1,7 +1,5 @@
 import * as _ from "lodash";
 
-
-
 export class StationAndCurveReport {
   geometricElements = [];
   rows = [];
@@ -72,51 +70,39 @@ export class StationAndCurveReport {
     return res;
   }
 
-  getModelsByTable() {
-    let cells = _.concat(this.rows);
-    cells = _.flatten(cells);
+  processTangentData(item, count) {
+    let name = "Права";
+    let lenth = item[19];
+    let stationStart = this.formatStation(item[6]);
+    let start = new PointElement(stationStart, item[7], item[8]);
+    let stationEnd = this.formatStation(item[10]);
+    let end = new PointElement(stationEnd, item[11], item[12]);
+    let tangent = new TangentElement(count, name, lenth, start, end);
+    this.geometricElements.push(tangent);
+  }
 
-    let count = 1;
+  processSpiralData(item, count) {
+    let name = "Пр. крива";
+    let lenth = item[23];
+    let theta = item[31];
+    let A = item[41];
+    let stationStart = this.formatStation(item[6]);
+    let pointStart = new PointElement(stationStart, item[7], item[8]);
+    let stationEnd = this.formatStation(item[14]);
+    let pointEnd = new PointElement(stationEnd, item[15], item[16]);
+    let spiral = new SpiralElement(
+      count,
+      name,
+      lenth,
+      pointStart,
+      pointEnd,
+      theta,
+      A
+    );
+    this.geometricElements.push(spiral);
+  }
 
-    for (let i = 0; i < cells.length; i++) {
-      let element = cells[i];
-      if (element === "Tangent Data") {
-        let item = cells.splice(i, 22);
-        let name = "Права";
-        let lenth = item[19];
-        let stationStart = this.formatStation(item[6]);
-        let start = new PointElement(stationStart, item[7], item[8]);
-        let stationEnd = this.formatStation(item[10]);
-        let end = new PointElement(stationEnd, item[11], item[12]);
-        let tangent = new TangentElement(count, name, lenth, start, end);
-        count++;
-        i = -1;
-        this.geometricElements.push(tangent);
-      } else if (element === "Spiral Point Data") {
-        let item = cells.splice(i, 46);
-        let name = "Пр. крива";
-        let lenth = item[23];
-        let theta = item[31];
-        let A = item[41];
-        let stationStart = this.formatStation(item[6]);
-        let pointStart = new PointElement(stationStart, item[7], item[8]);
-        let stationEnd = this.formatStation(item[14]);
-        let pointEnd = new PointElement(stationEnd, item[15], item[16]);
-        let spiral = new SpiralElement(
-          count,
-          name,
-          lenth,
-          pointStart,
-          pointEnd,
-          theta,
-          A
-        );
-        count++;
-        i = -1;
-        this.geometricElements.push(spiral);
-      } else if (element === "Curve Point Data") {
-        let item = cells.splice(i, 40);
-
+  processCurveData(item,count){
         let name = "Кр. крива";
         let lenth = item[29];
         let radius = item[27];
@@ -137,9 +123,33 @@ export class StationAndCurveReport {
           betaGradient,
           tangent
         );
-        count++;
-        i = -1;
         this.geometricElements.push(curve);
+
+  }
+
+  getModelsByTable() {
+    let cells = _.concat(this.rows);
+    cells = _.flatten(cells);
+
+    let count = 1;
+
+    for (let i = 0; i < cells.length; i++) {
+      let element = cells[i];
+      if (element === "Tangent Data") {
+        let item = cells.splice(i, 22);
+        i = -1;
+        this.processTangentData(item, count);
+        count++;
+      } else if (element === "Spiral Point Data") {
+        let item = cells.splice(i, 46);
+        i = -1;
+        this.processSpiralData(item, count);
+        count++;
+      } else if (element === "Curve Point Data") {
+        let item = cells.splice(i, 40);
+        i = -1;
+        this.processCurveData(item,count)
+        count++;
       }
     }
   }
