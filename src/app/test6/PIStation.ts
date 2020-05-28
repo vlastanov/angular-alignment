@@ -5,7 +5,8 @@ export class PIStation {
   piElements = [];
   titles;
   rows = [];
-
+  rows2 = [];
+  header
   constructor(public text: string) {
     this.getTable();
     this.getModelsByTable();
@@ -13,12 +14,16 @@ export class PIStation {
   }
 
   getTable() {
-    let groups = this.text
+    let tableText = this.text
       .replace(/(?:\r\n|\r|\n)/g, "")
-      .match(/<table.*?table>/g);
-    let tableText = groups[1];
+      .match(/<table.*?table>/g)[1];
 
-    // let tableText = TEXT
+       //getRows
+    let [heading, ...body] = tableText.match(/<tr.*?tr>/g);
+    this.header = new Row(heading);
+    console.log(this.header)
+    body.forEach(row => this.rows2.push(new Row(row)));
+    console.log(this.rows2)
 
     //getRows
     let rowsText = [];
@@ -96,4 +101,25 @@ export class Point {
     public y,
     public distance
   ) {}
+}
+
+
+
+export class Row {
+  station;
+  northing;
+  easting;
+  constructor(rowText: string) {
+    [this.station,this.northing, this.easting] = rowText
+      .match(/<td.*?td>|<th.*?th>/g)
+      .map(cell => {
+        return cell
+          .replace(
+            /<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g,
+            ""
+          )
+          .trim();
+      });
+      
+  }
 }
