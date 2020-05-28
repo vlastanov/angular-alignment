@@ -2,9 +2,7 @@ import * as _ from "lodash";
 
 export class StationAndCurveReport {
   geometricElements = [];
-  // rows = [];
   rows:Row[] = [];
-  header
 
   constructor(public text: string) {
     this.getTable();
@@ -14,43 +12,15 @@ export class StationAndCurveReport {
   getTable() {
     let tableText = this.text
       .replace(/(?:\r\n|\r|\n)/g, "")
-      .match(/<table.*?table>/g)[1];
+      .match(/<table.*?table>/g)[1];    
       
-      
-    //getRows
     let [...body] = tableText.match(/<tr.*?tr>/g);
-    // this.header = new Row(heading);
-
     body.forEach(row => this.rows.push(new Row(row).row));
-
-    // //getRows
-    // let rowsText = [];
-    // let result = tableText.match(/<tr.*?tr>/g);
-    // result.forEach(row => rowsText.push(row));
-
-   
-    // rowsText.forEach((row, k) => {
-    //   let cells = [];
-    //   let result = row.match(/<td.*?td>|<th.*?th>/g);
-    //   result.forEach(cell => {
-    //     cell = cell
-    //       .replace(
-    //         /<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g,
-    //         ""
-    //       )
-    //       .trim();
-    //     return cells.push(cell);
-    //   });
-    //   this.rows.push(cells);
-    // });
   }
 
   getModelsByTable() {
     let cells = _.concat(this.rows);
     cells = _.flatten(cells);
-    // console.log(cells)
-
-
     let count = 1;
 
     for (let i = 0; i < cells.length; i++) {
@@ -120,7 +90,6 @@ export class StationAndCurveReport {
   processSpiralData(item, count) {
     let name = "Пр. крива";
     let lenth = item[23];
-    let theta = item[31];
     let A = item[41];
     let stationStart = this.formatStation(item[6]);
     let pointStart = new PointElement(stationStart, item[7], item[8]);
@@ -132,7 +101,6 @@ export class StationAndCurveReport {
       lenth,
       pointStart,
       pointEnd,
-      theta,
       A
     );
     this.geometricElements.push(spiral);
@@ -211,19 +179,13 @@ export class CircularElement extends TangentElement {
   }
 }
 
-export class SpiralElement extends TangentElement {
-  get theta() {
-    let theta = this._theta.replace("&deg;", "°");
-    return theta;
-  }
-  set theta(value) {}
+export class SpiralElement extends TangentElement {  
   constructor(
     public count: number,
     public name: string,
     public length: string,
     public pointStart: PointElement,
     public pointEnd: PointElement,
-    private _theta: string,
     public A: string
   ) {
     super(count, name, length, pointStart, pointEnd);
