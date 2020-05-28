@@ -1,11 +1,9 @@
 
 
 export class PIStation {
-  points = [];
+  points: Point[] = [];
   piElements = [];
-  titles;
-  rows = [];
-  rows2 = [];
+  rows:Row[] = [];
   header
   constructor(public text: string) {
     this.getTable();
@@ -18,55 +16,18 @@ export class PIStation {
       .replace(/(?:\r\n|\r|\n)/g, "")
       .match(/<table.*?table>/g)[1];
 
-       //getRows
-    let [heading, ...body] = tableText.match(/<tr.*?tr>/g);
-    this.header = new Row(heading);
-    console.log(this.header)
-    body.forEach(row => this.rows2.push(new Row(row)));
-    console.log(this.rows2)
-
-    //getRows
-    let rowsText = [];
-    let result = tableText.match(/<tr.*?tr>/g);
-    result.forEach(row => rowsText.push(row));
-
-    //getCells
-    rowsText.forEach((row, k) => {
-      let cells = [];
-      let result = row.match(/<td.*?td>|<th.*?th>/g);
-      result.forEach(cell => {
-        cell = cell
-          .replace(
-            /<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g,
-            ""
-          )
-          .trim();
-        return cells.push(cell);
-      });
-      this.rows.push(cells);
-    });
+    
+    let [...body] = tableText.match(/<tr.*?tr>/g);
+    body.forEach(row => this.rows.push(new Row(row)));
   }
 
   getModelsByTable() {
-    let titles = this.rows.splice(0, 1);
-    this.titles = {
-      station: titles[0],
-      x: titles[1],
-      y: titles[2],
-      distance: titles[3]
-    };
 
     let count = 1;
-    for (let i = 0; i < this.rows.length - 1; i += 2) {
-      const element1 = this.rows[i];
-      const element2 = this.rows[i + 1];
-      let station = element1[0];
-      let x = element1[2];
-      let y = element1[1];
-      let distance = element2[3];
-      this.points.push(new Point(count, station, x, y, distance));
+    for (let i = 1; i < this.rows.length - 1; i += 2) {
+      const el = this.rows[i];
+      this.points.push(new Point(count, el.station, el.easting, el.northing));
       count++;
-      // console.log(element1)
     }
   }
 
@@ -79,8 +40,8 @@ export class PIStation {
       let piEl = new PIelement(count, first.station, first, second);
       this.piElements.push(piEl);
       count++;
-      // console.log(element1)
     }
+      console.log(this.piElements)
   }
 }
 
@@ -99,7 +60,6 @@ export class Point {
     public station,
     public x,
     public y,
-    public distance
   ) {}
 }
 
@@ -120,6 +80,6 @@ export class Row {
           )
           .trim();
       });
-      
+      // console.log(this.station)
   }
 }
