@@ -14,29 +14,24 @@ export class PIStation {
       .match(/<table.*?table>/g)[1];
 
     let [...body] = tableText.match(/<tr.*?tr>/g);
-    body.forEach(row => this.rows.push(new Row(row)));
+    body
+      .filter((row, i) => i % 2 === 1)
+      .forEach((row, i) => this.rows.push(new Row(row)));
   }
 
   getModelsByTable() {
-    let count = 1;
-    for (let i = 1; i < this.rows.length - 1; i += 2) {
+    for (let i = 0; i < this.rows.length; i++) {
       const el = this.rows[i];
-      this.points.push(new Point(count, el.station, el.easting, el.northing));
-      count++;
+      this.points.push(new Point(i + 1, el.station, el.easting, el.northing));
     }
   }
 
   getElements() {
-    let count = 1;
     for (let i = 0; i < this.points.length - 1; i++) {
       const first = this.points[i];
       const second = this.points[i + 1];
-
-      let piEl = new PIelement(count, first, second);
-      this.piElements.push(piEl);
-      count++;
+      this.piElements.push(new PIelement(i + 1, first, second));
     }
-    console.log(this.piElements);
   }
 }
 
