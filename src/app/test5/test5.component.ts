@@ -26,11 +26,14 @@ export class Test5Component implements OnInit{
   }
 
   ngOnInit(): void {
-    let betaAngle=30;
-    let centralAngle=180-betaAngle
-    let degreeToRadians=centralAngle*Math.PI/180
-    let sin=Math.sin(degreeToRadians)
-    console.log(sin)
+    let r=50;
+    let betaAngle=50;
+    let centralAngle=200-betaAngle
+    // let gradToRadians=centralAngle*Math.PI/200
+    // let sin=Math.sin(gradToRadians)
+
+    let tangenta=r*Math.tan((centralAngle/2)*Math.PI/200)
+    console.log(tangenta)
 
 
 
