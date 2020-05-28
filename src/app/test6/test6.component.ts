@@ -13,7 +13,6 @@ export class Test6Component implements OnInit {
   piElements = [];
 
   constructor() {}
-  // status: boolean = false;
 
   delete1(j) {
     this.geometricElements.splice(j, 1);
