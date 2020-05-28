@@ -2,8 +2,8 @@ import * as _ from "lodash";
 
 export class StationAndCurveReport {
   geometricElements = [];
-  rows = [];
-  rows2:Row[] = [];
+  // rows = [];
+  rows:Row[] = [];
   header
 
   constructor(public text: string) {
@@ -18,32 +18,60 @@ export class StationAndCurveReport {
       
       
     //getRows
-    let [heading, ...body] = tableText.match(/<tr.*?tr>/g);
-    this.header = new Row(heading);
+    let [...body] = tableText.match(/<tr.*?tr>/g);
+    // this.header = new Row(heading);
 
-    body.forEach(row => this.rows2.push(new Row(row)));
-    // console.log(this.rows2)
+    body.forEach(row => this.rows.push(new Row(row).row));
 
-    //getRows
-    let rowsText = [];
-    let result = tableText.match(/<tr.*?tr>/g);
-    result.forEach(row => rowsText.push(row));
+    // //getRows
+    // let rowsText = [];
+    // let result = tableText.match(/<tr.*?tr>/g);
+    // result.forEach(row => rowsText.push(row));
 
-    //getCells
-    rowsText.forEach((row, k) => {
-      let cells = [];
-      let result = row.match(/<td.*?td>|<th.*?th>/g);
-      result.forEach(cell => {
-        cell = cell
-          .replace(
-            /<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g,
-            ""
-          )
-          .trim();
-        return cells.push(cell);
-      });
-      this.rows.push(cells);
-    });
+   
+    // rowsText.forEach((row, k) => {
+    //   let cells = [];
+    //   let result = row.match(/<td.*?td>|<th.*?th>/g);
+    //   result.forEach(cell => {
+    //     cell = cell
+    //       .replace(
+    //         /<td.*?>|<\/td>|<th.*?>|<\/th>|<b>|<\/b>|<hr.*?>|<u>|<\/u>/g,
+    //         ""
+    //       )
+    //       .trim();
+    //     return cells.push(cell);
+    //   });
+    //   this.rows.push(cells);
+    // });
+  }
+
+  getModelsByTable() {
+    let cells = _.concat(this.rows);
+    cells = _.flatten(cells);
+    // console.log(cells)
+
+
+    let count = 1;
+
+    for (let i = 0; i < cells.length; i++) {
+      let element = cells[i];
+      if (element === "Tangent Data") {
+        let item = cells.splice(i, 22);
+        i = -1;
+        this.processTangentData(item, count);
+        count++;
+      } else if (element === "Spiral Point Data") {
+        let item = cells.splice(i, 46);
+        i = -1;
+        this.processSpiralData(item, count);
+        count++;
+      } else if (element === "Curve Point Data") {
+        let item = cells.splice(i, 40);
+        i = -1;
+        this.processCurveData(item, count);
+        count++;
+      }
+    }
   }
 
   getBetaDegreetoGradient(deltaDegree: string) {
@@ -133,42 +161,13 @@ export class StationAndCurveReport {
     );
     this.geometricElements.push(curve);
   }
-
-  getModelsByTable() {
-    let cells = _.concat(this.rows);
-    cells = _.flatten(cells);
-
-    let count = 1;
-
-    for (let i = 0; i < cells.length; i++) {
-      let element = cells[i];
-      if (element === "Tangent Data") {
-        let item = cells.splice(i, 22);
-        i = -1;
-        this.processTangentData(item, count);
-        count++;
-      } else if (element === "Spiral Point Data") {
-        let item = cells.splice(i, 46);
-        i = -1;
-        this.processSpiralData(item, count);
-        count++;
-      } else if (element === "Curve Point Data") {
-        let item = cells.splice(i, 40);
-        i = -1;
-        this.processCurveData(item, count);
-        count++;
-      }
-    }
-  }
 }
 
 export class Row {
-  pvi;
-  station;
-  elevation;
-  gradeOut;
+  row
+  geometricElements
   constructor(rowText: string) {
-    [this.pvi, this.station, this.elevation, this.gradeOut] = rowText
+    this.row = rowText
       .match(/<td.*?td>|<th.*?th>/g)
       .map(cell => {
         return cell
@@ -178,6 +177,8 @@ export class Row {
           )
           .trim();
       });
+    // console.log(this.row)
+      
   }
 }
 
