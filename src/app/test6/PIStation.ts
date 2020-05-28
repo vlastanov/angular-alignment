@@ -1,10 +1,8 @@
-
-
 export class PIStation {
   points: Point[] = [];
   piElements = [];
-  rows:Row[] = [];
-  header
+  rows: Row[] = [];
+  header;
   constructor(public text: string) {
     this.getTable();
     this.getModelsByTable();
@@ -16,13 +14,11 @@ export class PIStation {
       .replace(/(?:\r\n|\r|\n)/g, "")
       .match(/<table.*?table>/g)[1];
 
-    
     let [...body] = tableText.match(/<tr.*?tr>/g);
     body.forEach(row => this.rows.push(new Row(row)));
   }
 
   getModelsByTable() {
-
     let count = 1;
     for (let i = 1; i < this.rows.length - 1; i += 2) {
       const el = this.rows[i];
@@ -37,40 +33,31 @@ export class PIStation {
       const first = this.points[i];
       const second = this.points[i + 1];
 
-      let piEl = new PIelement(count, first.station, first, second);
+      let piEl = new PIelement(count, first, second);
       this.piElements.push(piEl);
       count++;
     }
-      console.log(this.piElements)
+    console.log(this.piElements);
   }
 }
 
 export class PIelement {
-  constructor(
-    public count,
-    public station,
-    public startPoint: Point,
-    public endPoint: Point
-  ) {}
+  station;
+  constructor(public count, public startPoint: Point, public endPoint: Point) {
+    this.station = this.startPoint.station;
+  }
 }
 
 export class Point {
-  constructor(
-    public count,
-    public station,
-    public x,
-    public y,
-  ) {}
+  constructor(public count, public station, public x, public y) {}
 }
-
-
 
 export class Row {
   station;
   northing;
   easting;
   constructor(rowText: string) {
-    [this.station,this.northing, this.easting] = rowText
+    [this.station, this.northing, this.easting] = rowText
       .match(/<td.*?td>|<th.*?th>/g)
       .map(cell => {
         return cell
@@ -80,6 +67,6 @@ export class Row {
           )
           .trim();
       });
-      // console.log(this.station)
+    // console.log(this.station)
   }
 }
