@@ -1,1 +1,19 @@
 <input type='file' accept='text/plain' multiple (change)='openFile($event)'>
+
+<table class="table  table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Станция</th>
+            <th scope="col">Елевация</th>
+            <th scope="col">Наклон</th>
+    </thead>
+    <tbody>
+        <tr *ngFor='let el of rows'>
+            <th scope="row">{{el.pvi}}</th>
+            <td>{{el.station}}</td>
+            <td>{{el.elevation}}</td>
+            <td>{{el.gradeOut}}</td>
+        </tr>
+    </tbody>
+</table>
