@@ -1,6 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnChanges } from "@angular/core";
 import { str } from "./htmlString";
-import { FormBuilder, FormGroup } from "@angular/forms";
 import * as _ from "lodash";
 
 //#region
@@ -18,28 +17,26 @@ const TEXT = `
   templateUrl: "./test5.component.html",
   styleUrls: ["./test5.component.css"]
 })
-export class Test5Component implements OnInit {
+export class Test5Component implements OnInit{
   str;
   header: Row;
   rows: Row[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor() {}
 
   openFile(event) {
-    let input = event.target;
-    for (var index = 0; index < input.files.length; index++) {
+    let input = event.target.files;
       let reader = new FileReader();
+      reader.readAsText(input[0], "UTF-8");
       reader.onload = () => {
         let text = reader.result;
-        this.str = text.toString().replace(/(?:\r\n|\r|\n)/g, "");
-        // console.log(this.str);
+        this.str = text.toString()
+        this.ngOnInit()
       };
-      reader.readAsText(input.files[index], "UTF-8");
-    }
   }
 
   ngOnInit(): void {
-    let tableText = TEXT.replace(/(?:\r\n|\r|\n)/g, "").match(
+    let tableText = this.str.replace(/(?:\r\n|\r|\n)/g, "").match(
       /<table.*?table>/g
     )[2];
 

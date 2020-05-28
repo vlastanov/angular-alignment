@@ -12,10 +12,11 @@ import { TablicaComponent } from './tablica/tablica.component';
 import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { Test6Component } from './test6/test6.component';
+import { PIStationDirective } from './test5/pistation.directive';
 
 @NgModule({
   imports:      [ BrowserModule,   NgxEchartsModule.forRoot({ echarts }),   FormsModule,AppRoutingModule, ReactiveFormsModule ],
-  declarations: [ AppComponent, BroadLaneComponent, Test5Component, TablicaComponent, Test6Component,  ],
+  declarations: [ AppComponent, BroadLaneComponent, Test5Component, TablicaComponent, Test6Component, PIStationDirective,  ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
