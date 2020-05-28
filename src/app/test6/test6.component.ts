@@ -3,6 +3,55 @@ import * as _ from "lodash";
 import { StationAndCurveReport } from "./stationAndCurve";
 import { PIStation } from "./PIStation";
 
+@Component({
+  selector: "app-test6",
+  templateUrl: "./test6.component.html",
+  styleUrls: ["./test6.component.css"]
+})
+export class Test6Component implements OnInit {
+  geometricElements = [];
+  piElements = [];
+
+  constructor() {}
+  // status: boolean = false;
+
+  delete1(j) {
+    this.geometricElements.splice(j, 1);
+  }
+  delete2(i) {
+    this.piElements.splice(i, 1);
+  }
+
+  ngOnInit(): void {
+    let stationAndCurve = new StationAndCurveReport(TEXT1);
+    this.geometricElements = stationAndCurve.geometricElements;
+
+    let piStationReport = new PIStation(TEXT2);
+    this.piElements = piStationReport.piElements;
+  }
+
+  stationAndCurve(event) {
+    let fileList = event.target.files;
+    let reader = new FileReader();
+    reader.readAsText(fileList[0], "UTF-8");
+    reader.onload = () => {
+      let stationAndCurve = new StationAndCurveReport(<string>reader.result);
+      this.geometricElements = stationAndCurve.geometricElements;
+    };
+  }
+
+  piStationFile(event) {
+    let fileList = event.target.files;
+    let reader = new FileReader();
+    reader.readAsText(fileList[0], "UTF-8");
+    reader.onload = () => {
+      let piStationReport = new PIStation(reader.result.toString());
+      this.piElements = piStationReport.piElements;
+    };
+  }
+}
+
+
 //#region
 
 const TEXT2 = `
@@ -2639,48 +2688,3 @@ const TEXT1 = `
 `;
 
 //#endregion
-
-@Component({
-  selector: "app-test6",
-  templateUrl: "./test6.component.html",
-  styleUrls: ["./test6.component.css"]
-})
-export class Test6Component implements OnInit {
-  geometricElements = [];
-  piElements = [];
-
-  constructor() {}
-  // status: boolean = false;
-
-  delete(i) {
-    this.piElements.splice(i, 1);
-  }
-
-  ngOnInit(): void {
-    let stationAndCurve = new StationAndCurveReport(TEXT1);
-    this.geometricElements = stationAndCurve.geometricElements;
-
-    let piStationReport = new PIStation(TEXT2);
-    this.piElements = piStationReport.piElements;
-  }
-
-  stationAndCurve(event) {
-    let fileList = event.target.files;
-    let reader = new FileReader();
-    reader.readAsText(fileList[0], "UTF-8");
-    reader.onload = () => {
-      let stationAndCurve = new StationAndCurveReport(<string>reader.result);
-      this.geometricElements = stationAndCurve.geometricElements;
-    };
-  }
-
-  piStationFile(event) {
-    let fileList = event.target.files;
-    let reader = new FileReader();
-    reader.readAsText(fileList[0], "UTF-8");
-    reader.onload = () => {
-      let piStationReport = new PIStation(reader.result.toString());
-      this.piElements = piStationReport.piElements;
-    };
-  }
-}

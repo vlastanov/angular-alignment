@@ -20,7 +20,7 @@
             <th scope="col" > Бета (g)</th>
     </thead>
     <tbody>
-        <tr *ngFor='let el of geometricElements'>
+        <tr *ngFor='let el of geometricElements; let j=index'>
             <th scope="row">{{el.count}}</th>
             <td>{{el.name}}</td>
             <td>{{el.length}}</td>
@@ -34,6 +34,7 @@
             <td>{{el.pointEnd.y}}</td>
             <td>{{el.tangent}}</td>
             <td>{{el.beta}}</td>
+            <button class="btn btn-danger" (click)="delete1(j)"> delete1 </button>
         </tr>
     </tbody>
 </table>
@@ -60,7 +61,7 @@
             <td>{{el.startPoint.y}}</td>
             <td>{{el.endPoint.x}}</td>
             <td>{{el.endPoint.y}}</td>
-            <button class="btn btn-danger" (click)="delete(i)"> delete </button>
+            <button class="btn btn-danger" (click)="delete2(i)"> delete2 </button>
            
         </tr>
     </tbody>
