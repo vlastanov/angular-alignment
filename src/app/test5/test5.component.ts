@@ -1,233 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { str } from './htmlString'
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { str } from "./htmlString";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import * as _ from "lodash";
 
+//#region
+
+const TEXT = `
+
+<html xmlns:lx="http://www.landxml.org/schema/LandXML-1.2" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:landUtils="http://www.autodesk.com/land/civil/vcedit" xmlns:lxml="urn:lx_utils"><head><META http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>PVI Stations report</title></head><body><div style="width:7in"><center><h1>Your Company Name</h1><h2>123 Main Street</h2><h2>Suite #321</h2><h2>City, 	 State 01234</h2></center><hr><table border="0" width="100%"><tr><td><b>PVI Stations Report</b></td><td align="right"><b>Client: </b>Client Company</td></tr><tr><td><b>Project Name: </b>T:\\03_TK 22\\PROJECTS\\119017_AM Hemus-u-k_4.2\\030 ROADWORKS\\31 DRAWINGS\\313 WORKING DRAWINGS\\Model Hemus 4.2-V1.dwg</td><td align="right"><b>Project Description: </b></td></tr><tr><td><b>Report Date: </b>21.5.2020 г. 13:29:10</td><td align="right"><b>Prepared by: </b>Preparer</td></tr></table><hr><p></p><table width="75%"><tr><td colspan="2"><u>Horizontal Alignment Information</u></td></tr><tr><td>Name:</td><td>АМ Хемус</td></tr><tr><td>Station Range:</td><td>1350+00.080 to 1693+07.280</td></tr></table><h3>Vertical Alignment: Нивелета</h3><table border="1" width="100%" cellpadding="7" cellspacing="1" bgcolor="#eeeeeff"><tr align="right"><th>PVI</th><th>Station</th><th>Elevation (m)</th><th>Grade Out (%)</th><th>Curve Length (m)</th></tr><tr align="right"><td>1</td><td>1455+51.110</td><td>337.737</td><td>0.500 %</td><td>0.000</td></tr><tr align="right"><td>2</td><td>1462+53.490</td><td>341.249</td><td>-0.500 %</td><td>300.012</td></tr><tr align="right"><td>3</td><td>1473+80.000</td><td>335.616</td><td>-4.500 %</td><td>639.994</td></tr><tr align="right"><td>4</td><td>1488+60.000</td><td>269.016</td><td>-0.500 %</td><td>1400.000</td></tr><tr align="right"><td>5</td><td>1519+65.000</td><td>253.491</td><td>-2.500 %</td><td>320.000</td></tr><tr align="right"><td>6</td><td>1528+85.000</td><td>230.491</td><td>-1.803 %</td><td>348.585</td></tr><tr align="right"><td>7</td><td>1536+80.000</td><td>216.158</td><td>-0.850 %</td><td>285.849</td></tr><tr align="right"><td>8</td><td>1544+00.000</td><td>210.038</td><td>-1.350 %</td><td>375.000</td></tr><tr align="right"><td>9</td><td>1555+95.000</td><td>193.906</td><td>-2.649 %</td><td>1299.202</td></tr><tr align="right"><td>10</td><td>1581+60.000</td><td>125.953</td><td>4.000 %</td><td>664.917</td></tr><tr align="right"><td>11</td><td>1597+12.048</td><td>188.035</td><td>-1.696 %</td><td>1822.633</td></tr><tr align="right"><td>12</td><td>1616+24.010</td><td>155.613</td><td> </td><td> </td></tr></table><hr size="2" color="red"></div></body></html>
+
+`;
+
+//#endregion
+
 @Component({
-  selector: 'app-test5',
-  templateUrl: './test5.component.html',
-  styleUrls: ['./test5.component.css']
+  selector: "app-test5",
+  templateUrl: "./test5.component.html",
+  styleUrls: ["./test5.component.css"]
 })
 export class Test5Component implements OnInit {
+  data: any[] = [];
+  regexTable = /<table.*?table>/gm;
+  tangentEls = [];
+  CircularEls = [];
+  SpiralEls = [];
 
-  data: any[] = []
-  regexTable = /<table.*?table>/mg;
-  tangentEls = []
-  CircularEls = []
-  SpiralEls = []
+  str;
 
-  str
+  constructor(private fb: FormBuilder) {}
 
-  constructor(private fb: FormBuilder) { }
-  
   openFile(event) {
     let input = event.target;
     for (var index = 0; index < input.files.length; index++) {
       let reader = new FileReader();
       reader.onload = () => {
         let text = reader.result;
-        this.str = text.toString().replace(/(?:\r\n|\r|\n)/g, '')
-        this.ngOnInit()
-      }
+        this.str = text.toString().replace(/(?:\r\n|\r|\n)/g, "");
+        // console.log(this.str);
+      };
       reader.readAsText(input.files[index], "UTF-8");
-    };
+    }
   }
 
   ngOnInit(): void {
-
-
-    this.getGroupTables()
-    this.getTables()
-    this.getRows()
-    this.getCells()
-    let [t, ...tablesGroup] = this.data
-    let tables = tablesGroup[0].tables
-    let count = 0
-    tables.forEach(table => {
-      let name = table.title
-      if (name === 'Tangent Data') {
-        count++;
-
-        let cells = []
-        table.rows.map(row => {
-          cells = [...cells, ...row.cells]
-          return row.cells
-        })
-        let length = cells[1]
-        this.tangentEls.push(new TangentElement(count, name, length,
-       
-         ))
-      }
-      else if (name === 'Spiral Curve Data: clothoid') {
-        count++;
-
-        let cells = []
-        table.rows.map(row => {
-          cells = [...cells, ...row.cells]
-          return row.cells
-        })
-        let length = cells[1]
-        let radius = cells[5]
-        let theta = cells[9]
-        let lTan = cells[3]
-        let sTan = cells[7]
-        let P = cells[11]
-        let K = cells[15]
-        let A = cells[19]
-        this.SpiralEls.push(new SpiralElement(count, name, length,
-        
-         radius,
-          theta,
-            lTan, sTan, P, K, A))
-
-
-      }
-      else if (name === 'Circular Curve Data') {
-        // console.log('Circular Curve Data')
-
-        let cells = []
-        table.rows.map(row => {
-          cells = [...cells, ...row.cells]
-          return row.cells
-        })
-        let length = cells[7]
-        let radius = cells[5]
-        let delta = cells[1]
-        let type = cells[3]
-        let tangent = cells[9]
-        let external = cells[13]
-        count++;
-        this.CircularEls.push(new CircularElement(count, name, length,
-       
-          radius,
-          delta,
-            type, tangent, external))
-
-      }
-
-    })
-    console.log(this.tangentEls)
-  }
-
-  getGroupTables() {
-    
-    let fullText = this.str.replace(/(?:\r\n|\r|\n)/g, '')
-    let groups = fullText.match(/<table.*?table>/g)
-    groups.forEach(group => this.data.push({ text: group }))
-  }
-
-  getTables() {
-    this.data.forEach((group, i) => {
-      let tables = group.text.split(/<hr>/g)
-      let horizRows = []
-      tables.forEach(horizRow => {
-        horizRows.push({ text: horizRow })
-      })
-      this.data[i].tables = horizRows
-      delete this.data[i].text;
-      // console.log(this.data[i].horizRows)
-    })
-  }
-
-  getRows() {
-    this.data.forEach((group, i) => {
-      group.tables.forEach((table, j) => {
-        let rows = []
-        let title
-        let result = table.text.match(/<tr.*?tr>/g)
-        result?.forEach((row, k) => {
-          if (k === 0) {
-            title = { text: row }
-          } else {
-            return rows.push({ text: row })
-          }
-        })
-        this.data[i].tables[j].titleText = title
-        this.data[i].tables[j].rows = rows
-        delete this.data[i].tables[j].text;
-      })
-    })
-  }
-
-  getCells() {
-    this.data.forEach((group, i) => {
-      group.tables.forEach((table, j) => {
-
-        let titleCell = []
-        let titles = table.titleText?.text.match(/<td.*?td>/g);
-        titles?.forEach(cell => {
-          cell = cell.replace(/<td.*?>|<\/td>|<b>|<\/b>|<u>|<\/u>/g, '')
-          return titleCell.push(cell)
-        })
-        if (titles) {
-          this.data[i].tables[j].title = titleCell[0]
-
-        } else {
-          this.data[i].tables[j].title = ''
-
-        }
-        delete this.data[i].tables[j].titleText;
-      })
-    })
-
-    this.data.forEach((group, i) => {
-      group.tables.forEach((table, j) => {
-
-        table.rows.forEach((row, k) => {
-          let cells = []
-          let result = row.text.match(/<td.*?td>/g)
-          result?.forEach(cell => {
-            cell = cell.replace(/<td.*?>|<\/td>|<b>|<\/b>|<u>|<\/u>/g, '')
-            return cells.push(cell)
-          })
-          this.data[i].tables[j].rows[k].cells = cells
-          delete this.data[i].tables[j].rows[k].text;
-        })
-      })
-    })
-
-  }
-
-}
-
-export class GeometricElement {
-  constructor(public count: number, public name: string) { }
-}
-export class TangentElement extends GeometricElement {
-  constructor(public count: number, public name: string, public length: string,   ) {
-    super(count, name)
-  }
-}
-
-export class CurveElement extends TangentElement {
-  constructor(public count: number, public name: string, public length: string, public radius: string,  ) {
-    super(count, name, length,  )
-  }
-}
-
-export class CircularElement extends CurveElement {
-
-  get delta() {
-    let delta = this._delta.replace('&deg;', '°')
-    return delta
-  }
-  set delta(value) {
-  }
-
-  constructor(public count: number, public name: string, public length: string, public radius: string, private _delta: string, public type: string, public tangent: string, public external) {
-    super(count, name, length,radius,)
-  }
-}
-
-export class SpiralElement extends CurveElement {
-  get theta() {
-    let theta = this._theta.replace('&deg;', '°')
-    return theta
-  }
-  set theta(value) {
-  }
-
-  constructor(public count: number, public name: string, public length: string,public radius: string,private _theta: string, public lTan: string, public sTan: string, public P: string, public K: string, public A: string) {
-    super(count, name, length,radius,)
+    console.log(TEXT)
   }
 }
