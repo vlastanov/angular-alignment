@@ -33,27 +33,7 @@ export class Test5Component implements OnInit {
     };
   }
 
-  formatStation(input:string):string{
-    let station= input.split(/[\+]+/);
-        let [first, second]=[...station]
-        let newStation= +first*100 + +second
-
-        let res=''
-        if(newStation<1000){
-          res=`0+${newStation}`
-        }else{
-          let one=newStation/1000
-          let two=Math.round(one)
-          let three=(one-two)*1000 
-          three= Math.round((three + Number.EPSILON) * 10000) / 10000
-          res=`${two}+${three}`
-        }
-        return res
-  }
-
   ngOnInit(): void {
-    let res=this.formatStation(`+43.618`)
-    console.log(res)
 
 
     this.getGroupTables()
