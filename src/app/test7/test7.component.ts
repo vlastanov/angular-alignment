@@ -45,6 +45,10 @@ export class PrehodKragovaPrehod {
     return Math.pow(this.prehod.Lp, 2) / (24 * this.r);
   }
 
+  get xm(){
+    return this.prehod.endX- this.r* Math.sin(this.prehod.thethaRad)
+  }
+
   get prehod() {
     return new PrehodnaElementi(this.A, this.r);
   }
