@@ -109,12 +109,17 @@ export class HorizontalnaKrivaElementi {
     return (Math.PI * this.r * this.delta) / 200;
   }
 
+  get prehod(){
+    return new PrehodnaKrivaElementi(this.A, this.r)
+  }
+}
+
+export class PrehodnaKrivaElementi{
+
+  constructor(public A:number, public r:number){}
+
   get Lp() {
     return (this.A * this.A) / this.r;
-  }
-
-  get deltaR() {
-    return Math.pow(this.Lp, 2) / (24 * this.r);
   }
 
   get thethaRad() {
@@ -125,14 +130,9 @@ export class HorizontalnaKrivaElementi {
     return (this.thethaRad * 200) / Math.PI;
   }
 
-  get prehod(){
-    return new PrehodnaKrivaElementi(this.Lp)
+  get deltaR() {
+    return Math.pow(this.Lp, 2) / (24 * this.r);
   }
-}
-
-export class PrehodnaKrivaElementi{
-
-  constructor(public Lp:number){}
 
   get endX(){
     return this.Lp - Math.pow(this.Lp, 5) / (40 * Math.pow(this.Lp, 4));
