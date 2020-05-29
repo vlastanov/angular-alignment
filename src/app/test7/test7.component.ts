@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 })
 export class Test7Component implements OnInit {
   form: FormGroup;
-  horKrivaEl: PrehodKragovaPrehod;
+  kriva: PrehodKragovaPrehod;
 
   constructor(private fb: FormBuilder) {}
 
@@ -19,14 +19,14 @@ export class Test7Component implements OnInit {
       A: this.form.get("A").value
     };
 
-    this.horKrivaEl = new PrehodKragovaPrehod(
+    this.kriva = new PrehodKragovaPrehod(
       +input.r,
       +input.beta,
       +input.A
     );
 
-    this.horKrivaEl.getCircularPiketaj(40);
-    this.horKrivaEl.prehod.getSpiralPiketaj();
+    this.kriva.kragova.getCircularPiketaj(40);
+    this.kriva.prehod.getSpiralPiketaj();
   }
 
   ngOnInit() {
@@ -41,31 +41,12 @@ export class Test7Component implements OnInit {
 export class PrehodKragovaPrehod {
   constructor(public r: number, public beta: number, public A: number) {}
 
-  get delta() {
-    return 200 - this.beta;
-  }
-
-  get tangenta() {
-    let deltaHalfRadians = ((this.delta / 2) * Math.PI) / 200;
-    return this.r * Math.tan(deltaHalfRadians);
-  }
-
-  get bisektrisa() {
-    let deltaHalfRadians = ((this.delta / 2) * Math.PI) / 200;
-    return this.r * (1 / Math.cos(deltaHalfRadians) - 1);
-  }
-
-  get D() {
-    return (Math.PI * this.r * this.delta) / 200;
-  }
-
   get prehod() {
     return new PrehodnaElementi(this.A, this.r);
   }
 
-  getCircularPiketaj(x) {
-    let y = this.r - Math.sqrt(this.r * this.r - x * x);
-    console.log(y);
+  get kragova(){
+    return new KragovaElementi(this.r,this.beta, this.A)
   }
 }
 
