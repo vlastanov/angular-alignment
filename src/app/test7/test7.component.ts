@@ -27,8 +27,7 @@ export class Test7Component implements OnInit {
     );
 
     this.horKrivaEl.getCircularPiketaj(40);
-   this.horKrivaEl.prehod.getSpiralPiketaj()
-    
+    this.horKrivaEl.prehod.getSpiralPiketaj();
   }
 
   ngOnInit() {
@@ -72,7 +71,7 @@ export class HorizontalnaKrivaElementi {
 }
 
 export class PrehodnaKrivaElementi {
-  podrobniTochki=[]
+  podrobniTochki = [];
   constructor(public A: number, public r: number) {}
 
   get Lp() {
@@ -103,7 +102,7 @@ export class PrehodnaKrivaElementi {
   }
 
   getSpiralPiketaj() {
-console.log(this.Lp)
+    console.log(this.Lp);
     let num = this.Lp / 10;
     for (let i = 0; i < num; i++) {
       let x = 10 + i * 10;
@@ -114,6 +113,34 @@ console.log(this.Lp)
 
       this.podrobniTochki.push({ xk, yk });
     }
-    console.log(this.podrobniTochki)
+    console.log(this.podrobniTochki);
   }
+}
+
+export class KragovaElementi{
+  constructor(public r: number, public beta: number, public A: number) {}
+
+  get delta() {
+    return 200 - this.beta;
+  }
+
+  get tangenta() {
+    let deltaHalfRadians = ((this.delta / 2) * Math.PI) / 200;
+    return this.r * Math.tan(deltaHalfRadians);
+  }
+
+  get bisektrisa() {
+    let deltaHalfRadians = ((this.delta / 2) * Math.PI) / 200;
+    return this.r * (1 / Math.cos(deltaHalfRadians) - 1);
+  }
+
+  get D() {
+    return (Math.PI * this.r * this.delta) / 200;
+  }
+
+  getCircularPiketaj(x) {
+    let y = this.r - Math.sqrt(this.r * this.r - x * x);
+    console.log(y);
+  }
+
 }
