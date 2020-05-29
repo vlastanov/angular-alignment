@@ -44,6 +44,7 @@ export class Test7Component implements OnInit {
     this.xk=this.Lp -Math.pow(this.Lp,5)/(40*Math.pow(this.Lp,4))
     this.yk=Math.pow(this.Lp,3)/(6*Math.pow(this.Lp,2))- (Math.pow(this.Lp,7))/(336*Math.pow(this.Lp,6))
 
+this.getSpiralPiketaj(50)
 
 
   }
@@ -54,8 +55,8 @@ export class Test7Component implements OnInit {
   }
 
   getSpiralPiketaj(x){
-    let xk=this.Lp -Math.pow(this.Lp,5)/(40*Math.pow(this.Lp,4))
-    let yk=Math.pow(this.Lp,3)/(6*Math.pow(this.Lp,2))- (Math.pow(this.Lp,7))/(336*Math.pow(this.Lp,6))
+    let xk=x -Math.pow(x,5)/(40*Math.pow(x,4))
+    let yk=Math.pow(x,3)/(6*Math.pow(x,2))- (Math.pow(x,7))/(336*Math.pow(x,6))
     console.log(xk)
     console.log(yk)
   }
