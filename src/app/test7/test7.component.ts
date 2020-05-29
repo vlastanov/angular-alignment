@@ -11,6 +11,8 @@ export class Test7Component implements OnInit {
   tangenta
   bisektrisa
   D
+  A
+  Lp
 
 
   constructor() { }
@@ -22,6 +24,11 @@ export class Test7Component implements OnInit {
     this.tangenta=this.r*Math.tan(deltaHalfRadians)
     this.bisektrisa=this.r*(1/Math.cos(deltaHalfRadians)-1)
     this.D=(Math.PI*this.r*delta)/200
+
+    this.A=this.r/3
+    this.Lp=(this.A*this.A)/this.r
+
+
   }
 
 }
