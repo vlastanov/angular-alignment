@@ -6,12 +6,14 @@ import { BroadLaneComponent } from './broad-lane/broad-lane.component';
 import { TablicaComponent } from './tablica/tablica.component';
 import { Test5Component } from './test5/test5.component';
 import { Test6Component } from './test6/test6.component';
+import { Test7Component } from './test7/test7.component';
 
 
 const routes: Routes = [
    { path: 'broadlane', component: BroadLaneComponent },
    { path: 'test5', component: Test5Component },
    { path: 'test6', component: Test6Component },
+   { path: 'test7', component: Test7Component },
   { path: 'tablica', component: TablicaComponent, outlet: 'sidebar' },
 ];
 
