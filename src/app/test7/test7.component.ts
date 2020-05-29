@@ -49,6 +49,15 @@ export class PrehodKragovaPrehod {
     return this.prehod.endX- this.r* Math.sin(this.prehod.thethaRad)
   }
 
+  get T(){
+    let deltaHalfRadians = ((this.kragova.delta / 2) * Math.PI) / 200;
+    let Tm=(2+this.deltaR)*Math.tan(deltaHalfRadians)
+    console.log(Tm)
+    console.log(Tm)
+
+    return this.xm+Tm
+  }
+
   get prehod() {
     return new PrehodnaElementi(this.A, this.r);
   }
