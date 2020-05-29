@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class Test7Component implements OnInit {
   form: FormGroup;
   horKrivaEl: HorizontalnaKrivaElementi;
-  prehodnaKrivaEl:PrehodnaKrivaElementi
+  prehodnaKrivaEl: PrehodnaKrivaElementi;
 
   constructor(private fb: FormBuilder) {}
 
@@ -26,8 +26,9 @@ export class Test7Component implements OnInit {
       +input.A
     );
 
-    this.horKrivaEl.getCircularPiketaj(40)
-    this.horKrivaEl.prehod.getSpiralPiketaj(45);
+    this.horKrivaEl.getCircularPiketaj(40);
+   this.horKrivaEl.prehod.getSpiralPiketaj()
+    
   }
 
   ngOnInit() {
@@ -36,8 +37,6 @@ export class Test7Component implements OnInit {
       beta: 80,
       A: 40
     });
-
-
   }
 }
 
@@ -62,8 +61,8 @@ export class HorizontalnaKrivaElementi {
     return (Math.PI * this.r * this.delta) / 200;
   }
 
-  get prehod(){
-    return new PrehodnaKrivaElementi(this.A, this.r)
+  get prehod() {
+    return new PrehodnaKrivaElementi(this.A, this.r);
   }
 
   getCircularPiketaj(x) {
@@ -72,9 +71,9 @@ export class HorizontalnaKrivaElementi {
   }
 }
 
-export class PrehodnaKrivaElementi{
-
-  constructor(public A:number, public r:number){}
+export class PrehodnaKrivaElementi {
+  podrobniTochki=[]
+  constructor(public A: number, public r: number) {}
 
   get Lp() {
     return (this.A * this.A) / this.r;
@@ -92,23 +91,29 @@ export class PrehodnaKrivaElementi{
     return Math.pow(this.Lp, 2) / (24 * this.r);
   }
 
-  get endX(){
+  get endX() {
     return this.Lp - Math.pow(this.Lp, 5) / (40 * Math.pow(this.Lp, 4));
   }
 
-  get endY(){
-    return Math.pow(this.Lp, 3) / (6 * Math.pow(this.Lp, 2)) -
-      Math.pow(this.Lp, 7) / (336 * Math.pow(this.Lp, 6));
+  get endY() {
+    return (
+      Math.pow(this.Lp, 3) / (6 * Math.pow(this.Lp, 2)) -
+      Math.pow(this.Lp, 7) / (336 * Math.pow(this.Lp, 6))
+    );
   }
 
-  getSpiralPiketaj(x) {
-    let xk = x - Math.pow(x, 5) / (40 * Math.pow(x, 4));
-    let yk =
-      Math.pow(x, 3) / (6 * Math.pow(x, 2)) -
-      Math.pow(x, 7) / (336 * Math.pow(x, 6));
-    console.log(xk);
-    console.log(yk);
+  getSpiralPiketaj() {
+console.log(this.Lp)
+    let num = this.Lp / 10;
+    for (let i = 0; i < num; i++) {
+      let x = 10 + i * 10;
+      let xk = x - Math.pow(x, 5) / (40 * Math.pow(x, 4));
+      let yk =
+        Math.pow(x, 3) / (6 * Math.pow(x, 2)) -
+        Math.pow(x, 7) / (336 * Math.pow(x, 6));
+
+      this.podrobniTochki.push({ xk, yk });
+    }
+    console.log(this.podrobniTochki)
   }
-
-
 }
