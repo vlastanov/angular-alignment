@@ -8,8 +8,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 })
 export class Test7Component implements OnInit {
   form: FormGroup;
-  horKrivaEl: HorizontalnaKrivaElementi;
-  prehodnaKrivaEl: PrehodnaKrivaElementi;
+  horKrivaEl: PrehodKragovaPrehod;
 
   constructor(private fb: FormBuilder) {}
 
@@ -20,7 +19,7 @@ export class Test7Component implements OnInit {
       A: this.form.get("A").value
     };
 
-    this.horKrivaEl = new HorizontalnaKrivaElementi(
+    this.horKrivaEl = new PrehodKragovaPrehod(
       +input.r,
       +input.beta,
       +input.A
@@ -39,7 +38,7 @@ export class Test7Component implements OnInit {
   }
 }
 
-export class HorizontalnaKrivaElementi {
+export class PrehodKragovaPrehod {
   constructor(public r: number, public beta: number, public A: number) {}
 
   get delta() {
@@ -61,7 +60,7 @@ export class HorizontalnaKrivaElementi {
   }
 
   get prehod() {
-    return new PrehodnaKrivaElementi(this.A, this.r);
+    return new PrehodnaElementi(this.A, this.r);
   }
 
   getCircularPiketaj(x) {
@@ -70,7 +69,7 @@ export class HorizontalnaKrivaElementi {
   }
 }
 
-export class PrehodnaKrivaElementi {
+export class PrehodnaElementi {
   podrobniTochki = [];
   constructor(public A: number, public r: number) {}
 
@@ -143,8 +142,4 @@ export class KragovaElementi{
     console.log(y);
   }
 
-}
-
-export class PrehodnaElementi{
-  
 }
