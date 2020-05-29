@@ -34,7 +34,7 @@ export class Test7Component implements OnInit {
 
     this.A=this.r
     this.Lp=(this.A*this.A)/this.r
-    this.deltaR=(this.Lp*this.Lp)/(24*this.r)
+    this.deltaR=Math.pow(this.Lp,2)/(24*this.r)
     
     this.thethaRad=this.Lp/(2*this.r);  
     this.thethGrad=(this.thethaRad*200)/Math.PI
