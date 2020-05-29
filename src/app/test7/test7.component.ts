@@ -57,7 +57,7 @@ export class Test7Component implements OnInit {
     let xk=this.Lp -Math.pow(this.Lp,5)/(40*Math.pow(this.Lp,4))
     let yk=Math.pow(this.Lp,3)/(6*Math.pow(this.Lp,2))- (Math.pow(this.Lp,7))/(336*Math.pow(this.Lp,6))
     console.log(xk)
-    console.log(ykxk)
+    console.log(yk)
   }
 
 }
