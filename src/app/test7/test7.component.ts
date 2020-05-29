@@ -32,8 +32,8 @@ export class Test7Component implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       r: 100,
-      beta: 80,
-      A: 40
+      beta: 70,
+      A: 60
     });
   }
 }
@@ -71,13 +71,13 @@ export class PrehodnaElementi {
   }
 
   get endX() {
-    return this.Lp - Math.pow(this.Lp, 5) / (40 * Math.pow(this.Lp, 4));
+    return this.Lp - (Math.pow(this.Lp, 5) / (40 * Math.pow(this.Lp, 4)));
   }
 
   get endY() {
     return (
-      Math.pow(this.Lp, 3) / (6 * Math.pow(this.Lp, 2)) -
-      Math.pow(this.Lp, 7) / (336 * Math.pow(this.Lp, 6))
+      (Math.pow(this.Lp, 3) / (6 * Math.pow(this.Lp, 2))) -
+      (Math.pow(this.Lp, 7) / (336 * Math.pow(this.Lp, 6)))
     );
   }
 
