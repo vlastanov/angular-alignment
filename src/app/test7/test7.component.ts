@@ -13,7 +13,9 @@ export class Test7Component implements OnInit {
   D
   A
   Lp
-
+  deltaR
+  thethaRad
+  thethGrad
 
   constructor() { }
 
@@ -27,6 +29,12 @@ export class Test7Component implements OnInit {
 
     this.A=this.r/3
     this.Lp=(this.A*this.A)/this.r
+    this.deltaR=(this.Lp*this.Lp)/(24*this.r)
+    
+    this.thethaRad=this.Lp/(2*this.r);  
+    this.thethGrad=(this.thethaRad*200)/Math.PI
+
+
 
 
   }
