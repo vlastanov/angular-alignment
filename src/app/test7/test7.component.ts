@@ -39,7 +39,11 @@ export class Test7Component implements OnInit {
 }
 
 export class PrehodKragovaPrehod {
-  constructor(public r: number, public beta: number, public A: number) {}
+  constructor(public r: number, public beta: number, public A: number) {}  
+
+  get deltaR() {
+    return Math.pow(this.prehod.Lp, 2) / (24 * this.r);
+  }
 
   get prehod() {
     return new PrehodnaElementi(this.A, this.r);
@@ -64,10 +68,6 @@ export class PrehodnaElementi {
 
   get thethaGrad() {
     return (this.thethaRad * 200) / Math.PI;
-  }
-
-  get deltaR() {
-    return Math.pow(this.Lp, 2) / (24 * this.r);
   }
 
   get endX() {
