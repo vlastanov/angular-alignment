@@ -36,6 +36,8 @@ export class Test7Component implements OnInit {
     this.thethaRad=this.Lp/(2*this.r);  
     this.thethGrad=(this.thethaRad*200)/Math.PI
 
+    let y=this.r - Math.sqrt(this.r*this.r -40*40)
+    console.log(y)
 
 
 
