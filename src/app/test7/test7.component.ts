@@ -144,3 +144,7 @@ export class KragovaElementi{
   }
 
 }
+
+export class PrehodnaElementi{
+  
+}
