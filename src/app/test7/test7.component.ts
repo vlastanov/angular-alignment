@@ -10,16 +10,18 @@ export class Test7Component implements OnInit {
   beta=50
   tangenta
   bisektrisa
+  D
 
 
   constructor() { }
 
   ngOnInit() {
-    let delta=200-this.beta
+    let delta=(200-this.beta)
     let deltaHalfRadians=(delta/2)*Math.PI/200
 
     this.tangenta=this.r*Math.tan(deltaHalfRadians)
     this.bisektrisa=this.r*(1/Math.cos(deltaHalfRadians)-1)
+    this.D=(Math.PI*this.r*delta)/200
   }
 
 }
