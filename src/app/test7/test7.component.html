@@ -26,3 +26,18 @@
 
 <div>Ордината в КП :</div>
 <h3>{{yk}}</h3>
+
+
+<form [formGroup]="form"  (ngSubmit)="save()">
+
+   <label for='rId' >Ширина на платното</label>
+    <input id='rId' class="form-control"   type="text" formControlName="r">
+  
+  <label for='betaId' >Ширина на платното</label>
+    <input id='betaId' class="form-control"   type="text" formControlName="beta">
+    
+  <label for='AId' >Проектен радиус</label>
+    <input id='AId' class="form-control"   type="text" formControlName="A">
+  <button class="btn btn-outline-secondary" type="submit" [disabled]="!form.valid">Submit</button>
+
+</form>

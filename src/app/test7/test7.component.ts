@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-test7',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./test7.component.css']
 })
 export class Test7Component implements OnInit {
+  form: FormGroup;
 
   r=50
   beta=50
@@ -22,9 +24,17 @@ export class Test7Component implements OnInit {
   xk
   yk
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {}
+
+    save() {
+  }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      r: 100,
+      beta: 80,
+      A: 40
+    });
     this.delta=(200-this.beta)
     let deltaHalfRadians=(this.delta/2)*Math.PI/200
 
