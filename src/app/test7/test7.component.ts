@@ -19,6 +19,9 @@ export class Test7Component implements OnInit {
   thethaRad
   thethGrad
 
+  xk
+  yk
+
   constructor() { }
 
   ngOnInit() {
@@ -29,14 +32,17 @@ export class Test7Component implements OnInit {
     this.bisektrisa=this.r*(1/Math.cos(deltaHalfRadians)-1)
     this.D=(Math.PI*this.r*this.delta)/200
 
-    this.A=this.r/3
+    this.A=this.r
     this.Lp=(this.A*this.A)/this.r
     this.deltaR=(this.Lp*this.Lp)/(24*this.r)
     
     this.thethaRad=this.Lp/(2*this.r);  
     this.thethGrad=(this.thethaRad*200)/Math.PI
 
-    this.getCircularPiketaj(40)
+    // this.getCircularPiketaj(40)
+// console.log(Math.pow(3,3))
+    this.xk=this.Lp -Math.pow(this.Lp,5)/(40*Math.pow(this.Lp,4))
+    this.yk=Math.pow(this.Lp,3)/(6*Math.pow(this.Lp,2))- (Math.pow(this.Lp,7))/(336*Math.pow(this.Lp,6))
 
 
 
