@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 })
 export class Test7Component implements OnInit {
   form: FormGroup;
-
+  horKrivaEl: HorizontalnaKrivaElementi;
   r = 50;
   beta = 50;
   delta;
@@ -19,7 +19,7 @@ export class Test7Component implements OnInit {
   Lp;
   deltaR;
   thethaRad;
-  thethGrad;
+  thethaGrad;
 
   xk;
   yk;
@@ -32,6 +32,14 @@ export class Test7Component implements OnInit {
       beta: this.form.get("beta").value,
       A: this.form.get("A").value
     };
+
+    this.horKrivaEl = new HorizontalnaKrivaElementi(
+      +input.r,
+      +input.beta,
+      +input.A
+    );
+
+
   }
 
   ngOnInit() {
@@ -40,11 +48,12 @@ export class Test7Component implements OnInit {
       beta: 80,
       A: 40
     });
+
     this.delta = 200 - this.beta;
     let deltaHalfRadians = ((this.delta / 2) * Math.PI) / 200;
-
     this.tangenta = this.r * Math.tan(deltaHalfRadians);
     this.bisektrisa = this.r * (1 / Math.cos(deltaHalfRadians) - 1);
+
     this.D = (Math.PI * this.r * this.delta) / 200;
 
     this.A = this.r / 2;
@@ -52,7 +61,7 @@ export class Test7Component implements OnInit {
     this.deltaR = Math.pow(this.Lp, 2) / (24 * this.r);
 
     this.thethaRad = this.Lp / (2 * this.r);
-    this.thethGrad = (this.thethaRad * 200) / Math.PI;
+    this.thethaGrad = (this.thethaRad * 200) / Math.PI;
 
     // this.getCircularPiketaj(40)
     // console.log(Math.pow(3,3))
@@ -76,5 +85,43 @@ export class Test7Component implements OnInit {
       Math.pow(x, 7) / (336 * Math.pow(x, 6));
     console.log(xk);
     console.log(yk);
+  }
+}
+
+export class HorizontalnaKrivaElementi {
+  constructor(public r: number, public beta: number, public A: number) {}
+
+  get delta() {
+    return 200 - this.beta;
+  }
+
+  get tangenta() {
+    let deltaHalfRadians = ((this.delta / 2) * Math.PI) / 200;
+    return this.r * Math.tan(deltaHalfRadians);
+  }
+
+  get bisektrisa() {
+    let deltaHalfRadians = ((this.delta / 2) * Math.PI) / 200;
+    return this.r * (1 / Math.cos(deltaHalfRadians) - 1);
+  }
+
+  get D() {
+    return (Math.PI * this.r * this.delta) / 200;
+  }
+
+  get Lp() {
+    return (this.A * this.A) / this.r;
+  }
+
+  get deltaR() {
+    return Math.pow(this.Lp, 2) / (24 * this.r);
+  }
+
+  get thethaRad() {
+    return this.Lp / (2 * this.r);
+  }
+
+  get thethaGrad() {
+    return (this.thethaRad * 200) / Math.PI;
   }
 }

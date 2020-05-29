@@ -1,5 +1,9 @@
+<div *ngIf='' >
+
+</div>
+
 <div>Тангентата:</div>
-<h3>{{tangenta}}</h3>
+<h3>{{horKrivaEl?.tangenta}}</h3>
 
 <div>Бисектрисата:</div>
 <h3>{{bisektrisa}}</h3>
@@ -17,7 +21,7 @@
 <h3>{{deltaR}}</h3>
 
 <div>Тангентен ъгъл :</div>
-<h3>{{thethGrad}}</h3>
+<h3>{{thethaGrad}}</h3>
 
 
 <div>Абциса в КП :</div>
@@ -30,13 +34,13 @@
 
 <form [formGroup]="form"  (ngSubmit)="save()">
 
-   <label for='rId' >Ширина на платното</label>
+   <label for='rId' >Радиус</label>
     <input id='rId' class="form-control"   type="text" formControlName="r">
   
-  <label for='betaId' >Ширина на платното</label>
+  <label for='betaId' >Върхов ъгъл</label>
     <input id='betaId' class="form-control"   type="text" formControlName="beta">
     
-  <label for='AId' >Проектен радиус</label>
+  <label for='AId' >Параметър А</label>
     <input id='AId' class="form-control"   type="text" formControlName="A">
   <button class="btn btn-outline-secondary" type="submit" [disabled]="!form.valid">Submit</button>
 
