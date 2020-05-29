@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class Test7Component implements OnInit {
   form: FormGroup;
   horKrivaEl: HorizontalnaKrivaElementi;
+  prehodnaKrivaEl:PrehodnaKrivaElementi
   r = 50;
   beta = 50;
   delta;
@@ -38,7 +39,6 @@ export class Test7Component implements OnInit {
       +input.beta,
       +input.A
     );
-
 
   }
 
@@ -124,4 +124,24 @@ export class HorizontalnaKrivaElementi {
   get thethaGrad() {
     return (this.thethaRad * 200) / Math.PI;
   }
+
+  get prehod(){
+    return new PrehodnaKrivaElementi(this.Lp)
+  }
+}
+
+export class PrehodnaKrivaElementi{
+
+  constructor(public Lp:number){}
+
+  get endX(){
+    return this.Lp - Math.pow(this.Lp, 5) / (40 * Math.pow(this.Lp, 4));
+  }
+
+  get endY(){
+    return Math.pow(this.Lp, 3) / (6 * Math.pow(this.Lp, 2)) -
+      Math.pow(this.Lp, 7) / (336 * Math.pow(this.Lp, 6));
+  }
+
+
 }
