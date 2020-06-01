@@ -1,36 +1,52 @@
-<div *ngIf='' >
+<div *ngIf=''>
 
 </div>
+Първоначална кривата
+<hr>
+<div>
+	<div> Тангентата: <strong>{{kriva?.kragova.tangenta}}      </strong> </div>
+	<div> Бисектрисата: <strong>{{kriva?.kragova.bisektrisa}} </strong> </div>
+	<div> Дължината на кривата: <strong>{{kriva?.kragova.D}} </strong> </div>
+	<div> Централен ъгъл: <strong>{{kriva?.kragova.delta}} </strong> </div>
+</div>
+<hr>
 
-<p>Тангентата:</p><h3>{{kriva?.kragova.tangenta}}</h3>
-<p>Бисектрисата:</p><h3>{{kriva?.kragova.bisektrisa}}</h3>
-<p>Дължината на кривата:</p><h3>{{kriva?.kragova.D}}</h3>
-<p>Централен ъгъл:</p><h3>{{kriva?.kragova.delta}}</h3>
-<p>Преходна крива</p><h3>{{kriva?.prehod.Lp}}</h3>
-<p>Тангенциално отместване: </p><h3>{{kriva?.deltaR}}</h3>
-<p>Тангентен ъгъл :</p><h3>{{kriva?.prehod.thethaGrad}}</h3>
-<p>Xm:</p><h3>{{kriva?.xm}}</h3>
-<p>T:</p><h3>{{kriva?.T}}</h3>
+Преходна крива
+<div>
+<div>Дължина: {{kriva?.prehod.Lp}}</div>
+<div>
+
+Тангенциално отместване: 
+{{kriva?.deltaR}}
+</div>
+Тангентен ъгъл :
+{{kriva?.prehod.thethaGrad}}
+Xm:
+{{kriva?.xm}}
+T:
+{{kriva?.T}}
 
 
-<p>Абциса в КП :</p>
-<h3>{{kriva?.prehod.endX}}</h3>
+Абциса в КП :
+{{kriva?.prehod.endX}}
 
 
-<p>Ордината в КП :</p>
-<h3>{{kriva?.prehod.endY}}</h3>
-
-
-<form [formGroup]="form"  (ngSubmit)="save()">
-
-   <label for='rId' >Радиус</label>
-    <input id='rId' class="form-control"   type="text" formControlName="r">
+Ордината в КП :
+{{kriva?.prehod.endY}}
+</div>
   
-  <label for='betaId' >Върхов ъгъл</label>
-    <input id='betaId' class="form-control"   type="text" formControlName="beta">
-    
-  <label for='AId' >Параметър А</label>
-    <input id='AId' class="form-control"   type="text" formControlName="A">
-  <button class="btn btn-outline-secondary" type="submit" [disabled]="!form.valid">Submit</button>
+
+
+<form [formGroup]="form" (ngSubmit)="save()">
+
+	<label for='rId' >Радиус</label>
+	<input id='rId' class="form-control"   type="text" formControlName="r">
+
+	<label for='betaId' >Върхов ъгъл</label>
+	<input id='betaId' class="form-control"   type="text" formControlName="beta">
+
+	<label for='AId' >Параметър А</label>
+	<input id='AId' class="form-control"   type="text" formControlName="A">
+	<button class="btn btn-outline-secondary" type="submit" [disabled]="!form.valid">Submit</button>
 
 </form>
