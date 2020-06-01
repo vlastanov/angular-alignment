@@ -11,18 +11,16 @@
 			<div> Дължина: <strong>{{kriva?.kragova.D}} </strong> </div>
 			<div> Делта: <strong>{{kriva?.kragova.delta}} </strong> </div>
 		</div>
-		<hr>
 	</div>
 	<div class="col-sm-4">
 		<h5> Пр. крива</h5>
 		<div>
 			<div>Дължина: <strong> {{kriva?.prehod.Lp}} </strong> </div>
-			<div>Тангенциално отместване: <strong>{{kriva?.deltaR}} </strong></div>
+			<div>Танг. отместване: <strong>{{kriva?.deltaR}} </strong></div>
 			<div>Тета : <strong>{{kriva?.prehod.thethaGrad}} </strong></div>
 			<div>Абциса КП : <strong>{{kriva?.prehod.endX}} </strong></div>
 			<div>Ордината КП : <strong>{{kriva?.prehod.endY}} </strong></div>
 		</div>
-		<hr>
 	</div>
 	<div class="col-sm-4">
 		<h5> Завършена крива</h5>
@@ -30,21 +28,23 @@
 			<div>Xm: <strong>{{kriva?.xm}}</strong> </div>
 			<div> T:<strong>{{kriva?.T}}</strong> </div>
 		</div>
-		<hr>
 	</div>
-
 </div>
+<div class="row">
 
-<form [formGroup]="form" (ngSubmit)="save()">
 
-	<label for='rId' >Радиус</label>
-	<input id='rId' class="form-control"   type="text" formControlName="r">
 
-	<label for='betaId' >Бета</label>
-	<input id='betaId' class="form-control"   type="text" formControlName="beta">
+	<form [formGroup]="form" (ngSubmit)="save()">
 
-	<label for='AId' >Параметър А</label>
-	<input id='AId' class="form-control"   type="text" formControlName="A">
-	<button class="btn btn-outline-secondary" type="submit" [disabled]="!form.valid">Submit</button>
+		<label for='rId' >Радиус</label>
+		<input id='rId' class="form-control"   type="text" formControlName="r">
 
-</form>
+		<label for='betaId' >Бета</label>
+		<input id='betaId' class="form-control"   type="text" formControlName="beta">
+
+		<label for='AId' >Параметър А</label>
+		<input id='AId' class="form-control"   type="text" formControlName="A">
+		<button class="btn btn-outline-secondary" type="submit" [disabled]="!form.valid">Submit</button>
+
+	</form>
+</div>
