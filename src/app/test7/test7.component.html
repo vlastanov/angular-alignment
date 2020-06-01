@@ -2,40 +2,43 @@
 
 </div>
 
-<div>
-	Първоначална кривата
-	<br>
-	<br>
-	<div>
-		<div> Тангентата: <strong>{{kriva?.kragova.tangenta}}      </strong> </div>
-		<div> Бисектрисата: <strong>{{kriva?.kragova.bisektrisa}} </strong> </div>
-		<div> Дължината на кривата: <strong>{{kriva?.kragova.D}} </strong> </div>
-		<div> Централен ъгъл: <strong>{{kriva?.kragova.delta}} </strong> </div>
+<div class="row">
+	<div class="col-sm-4">
+		Първоначална кривата
+		<br>
+		<br>
+		<div>
+			<div> Тангентата: <strong>{{kriva?.kragova.tangenta}}      </strong> </div>
+			<div> Бисектрисата: <strong>{{kriva?.kragova.bisektrisa}} </strong> </div>
+			<div> Дължината на кривата: <strong>{{kriva?.kragova.D}} </strong> </div>
+			<div> Централен ъгъл: <strong>{{kriva?.kragova.delta}} </strong> </div>
+		</div>
+		<hr>
 	</div>
-	<hr>
-</div>
-<div>
-	Преходна крива
-	<br>
-	<br>
-	<div>
-		<div>Дължина: <strong> {{kriva?.prehod.Lp}} </strong> </div>
-		<div>Тангенциално отместване: <strong>{{kriva?.deltaR}} </strong></div>
-		<div>Тангентен ъгъл : <strong>{{kriva?.prehod.thethaGrad}} </strong></div>
-		<div>Абциса в КП : <strong>{{kriva?.prehod.endX}} </strong></div>
-		<div>Ордината в КП : <strong>{{kriva?.prehod.endY}} </strong></div>
+	<div class="col-sm-4">
+		Преходна крива
+		<br>
+		<br>
+		<div>
+			<div>Дължина: <strong> {{kriva?.prehod.Lp}} </strong> </div>
+			<div>Тангенциално отместване: <strong>{{kriva?.deltaR}} </strong></div>
+			<div>Тангентен ъгъл : <strong>{{kriva?.prehod.thethaGrad}} </strong></div>
+			<div>Абциса в КП : <strong>{{kriva?.prehod.endX}} </strong></div>
+			<div>Ордината в КП : <strong>{{kriva?.prehod.endY}} </strong></div>
+		</div>
+		<hr>
 	</div>
-	<hr>
-</div>
-<div>
-	Преходна с нова крива
-	<br>
-	<br>
-	<div>
-		<div>Xm: <strong>{{kriva?.xm}}</strong> </div>
-		<div> T:<strong>{{kriva?.T}}</strong> </div>
+	<div class="col-sm-4">
+		Преходна с нова крива
+		<br>
+		<br>
+		<div>
+			<div>Xm: <strong>{{kriva?.xm}}</strong> </div>
+			<div> T:<strong>{{kriva?.T}}</strong> </div>
+		</div>
+		<hr>
 	</div>
-	<hr>
+
 </div>
 
 <form [formGroup]="form" (ngSubmit)="save()">
