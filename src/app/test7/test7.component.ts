@@ -118,7 +118,7 @@ export class PrehodnaElementi {
         Math.pow(x, 3) / (6 * Math.pow(x, 2)) -
         Math.pow(x, 7) / (336 * Math.pow(x, 6));
 
-      this.podrobniTochki.push({x, xk, yk });
+      this.podrobniTochki.push({x:x, xk:xk, yk:yk });
     }
     console.log(this.podrobniTochki);
   }
