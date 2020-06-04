@@ -55,6 +55,11 @@ export class PrehodKragovaPrehod {
     return this.xm+Tm
   }
 
+  get bisektrisa() {
+    let deltaHalfRadians = ((this.kragova.delta / 2) * Math.PI) / 200;    
+    return (this.r+this.deltaR)/(Math.cos(deltaHalfRadians)) - this.r
+  }
+
   get prehod() {
     return new PrehodnaElementi(this.A, this.r);
   }
