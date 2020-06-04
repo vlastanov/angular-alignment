@@ -112,10 +112,10 @@ export class PrehodnaElementi {
     let num = this.Lp / 10;
     for (let i = 0; i < num-1; i++) {
       let x = 10 + i * 10;
-      let xk = x - Math.pow(x, 5) / (40 * Math.pow(this.A*(x/this.Lp), 4));
+      let xk = x - Math.pow(x, 5) / (40 * Math.pow(this.A, 4));
       let yk =
-        Math.pow(x, 3) / (6 * Math.pow(this.A*(x/this.Lp), 2)) -
-        Math.pow(x, 7) / (336 * Math.pow(this.A*(x/this.Lp), 6));
+        Math.pow(x, 3) / (6 * Math.pow(this.A, 2)) -
+        Math.pow(x, 7) / (336 * Math.pow(this.A, 6));
 
       this.podrobniTochki.push({ x: x, xk: xk, yk: yk });
     }
