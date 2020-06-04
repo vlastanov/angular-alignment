@@ -39,20 +39,40 @@
 	</div>
 	<div class="row">
 
+		<div class="col-md-6">
+			<form [formGroup]="form" (ngSubmit)="save()">
 
+				<label for='rId' >Радиус</label>
+				<input id='rId' class="form-control"   type="text" formControlName="r">
 
-		<form [formGroup]="form" (ngSubmit)="save()">
+				<label for='betaId' >Бета</label>
+				<input id='betaId' class="form-control"   type="text" formControlName="beta">
 
-			<label for='rId' >Радиус</label>
-			<input id='rId' class="form-control"   type="text" formControlName="r">
+				<label for='AId' >Параметър А</label>
+				<input id='AId' class="form-control"   type="text" formControlName="A">
+				<button class="btn btn-outline-secondary" type="submit" [disabled]="!form.valid">Submit</button>
 
-			<label for='betaId' >Бета</label>
-			<input id='betaId' class="form-control"   type="text" formControlName="beta">
+			</form>
 
-			<label for='AId' >Параметър А</label>
-			<input id='AId' class="form-control"   type="text" formControlName="A">
-			<button class="btn btn-outline-secondary" type="submit" [disabled]="!form.valid">Submit</button>
+		</div>
 
-		</form>
+		<div class="col-md-6">
+			<table>
+				<thead>
+					<tr>
+						<th scope="col">x </th>
+						<th scope="col">xk </th>
+						<th scope="col">yk </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let el of podrobniTochkiPrehod">
+						<td>{{el['x']}}</td>
+						<td>{{el['xk']}}</td>
+						<td>{{el['yk']}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>

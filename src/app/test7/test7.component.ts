@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class Test7Component implements OnInit {
   form: FormGroup;
   kriva: PrehodKragovaPrehod;
+  podrobniTochkiPrehod
 
   constructor(private fb: FormBuilder) {}
 
@@ -27,6 +28,7 @@ export class Test7Component implements OnInit {
 
     this.kriva.kragova.getCircularPiketaj(40);
     this.kriva.prehod.getSpiralPiketaj();
+    this.podrobniTochkiPrehod=this.kriva.prehod.podrobniTochki
   }
 
   ngOnInit() {
@@ -79,7 +81,9 @@ export class PrehodKragovaPrehod {
 
 export class PrehodnaElementi {
   podrobniTochki = [];
-  constructor(public A: number, public r: number) {}
+  constructor(public A: number, public r: number) {
+    this.getSpiralPiketaj()
+  }
 
   get Lp() {
     return (this.A * this.A) / this.r;
@@ -114,7 +118,7 @@ export class PrehodnaElementi {
         Math.pow(x, 3) / (6 * Math.pow(x, 2)) -
         Math.pow(x, 7) / (336 * Math.pow(x, 6));
 
-      this.podrobniTochki.push({ xk, yk });
+      this.podrobniTochki.push({x, xk, yk });
     }
     console.log(this.podrobniTochki);
   }
