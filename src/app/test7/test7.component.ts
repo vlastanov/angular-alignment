@@ -33,7 +33,7 @@ export class Test7Component implements OnInit {
     this.form = this.fb.group({
       r: 50,
       beta: 60,
-      A: 60
+      A: 30
     });
   }
 }
