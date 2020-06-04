@@ -52,8 +52,6 @@ export class PrehodKragovaPrehod {
   get T(){
     let deltaHalfRadians = ((this.kragova.delta / 2) * Math.PI) / 200;
     let Tm=(this.r+this.deltaR)*Math.tan(deltaHalfRadians)
-    console.log(Tm)
-
     return this.xm+Tm
   }
 
