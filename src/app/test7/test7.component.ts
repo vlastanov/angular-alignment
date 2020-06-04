@@ -32,7 +32,7 @@ export class Test7Component implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       r: 100,
-      beta: 70,
+      beta: 60,
       A: 60
     });
   }
