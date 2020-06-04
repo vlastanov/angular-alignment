@@ -60,6 +60,11 @@ export class PrehodKragovaPrehod {
     return (this.r+this.deltaR)/(Math.cos(deltaHalfRadians)) - this.r
   }
 
+  get Dz(){
+      
+    return (this.kragova.delta - 2*this.prehod.thethaGrad)*Math.PI/200*this.r
+  }
+
   get prehod() {
     return new PrehodnaElementi(this.A, this.r);
   }
