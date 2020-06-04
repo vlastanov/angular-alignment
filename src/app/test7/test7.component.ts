@@ -110,7 +110,7 @@ export class PrehodnaElementi {
   getSpiralPiketaj() {
     console.log(this.Lp);
     let num = this.Lp / 10;
-    for (let i = 0; i < num; i++) {
+    for (let i = 0; i < num-1; i++) {
       let x = 10 + i * 10;
       let xk = x - Math.pow(x, 5) / (40 * Math.pow(this.A*(x/this.Lp), 4));
       let yk =
