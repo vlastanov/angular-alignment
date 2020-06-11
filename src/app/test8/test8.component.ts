@@ -17,6 +17,13 @@ export class Test8Component implements OnInit {
     let startY='8547251.3163'
     let endX='8547258.1907'
     let endY='8547258.1907'
+
+
+    let rightAngleX=+endX - +startX
+    let rightAngleY= +endY
+
+    console.log(rightAngleX)
+    console.log(rightAngleY)
   }
 
 }
