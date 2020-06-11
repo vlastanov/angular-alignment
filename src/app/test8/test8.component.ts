@@ -15,11 +15,7 @@ export class Test8Component implements OnInit {
   method() {
     let start = new Point(+"8547251.3163", +"4554911.912");
     let end = new Point(+"8547258.1907", +"4554925.707");
-
-    let line=new Line(start, end)
-
     let triangle1 = new Triangle(start, end);
-
     console.log(triangle1.angleVertical);
   }
 }
@@ -70,6 +66,11 @@ export class Triangle {
 
   public get angleVertical() {
     let cosAngle = this.CatetVertical / this.Hypotenuse;
+    return (Math.acos(cosAngle) * 200) / Math.PI;
+  }
+
+  public get angleHorizontal() {
+    let cosAngle = this.CatetHorizontal / this.Hypotenuse;
     return (Math.acos(cosAngle) * 200) / Math.PI;
   }
 }
