@@ -22,7 +22,7 @@ export class Test8Component implements OnInit {
     console.log(rightAngleX);
     let rightAngleY = end.y - start.y;
     console.log(rightAngleY);
-    let cosAngle = rightAngleY / distanceHypotenuse;
+    let cosAngle = rightAngleY / triangle1.DistanceHypotenuse;
     console.log(cosAngle);
 
     let angle = (Math.acos(cosAngle) * 200) / Math.PI;
@@ -36,18 +36,22 @@ export class Point {
 
 export class Triangle {
   constructor(private start: Point, private end: Point) {
-    let distanceX = end.x - start.x;
-    console.log(distanceX);
-    let distanceY = end.y - start.y;
-    console.log(distanceY);
-
-    let distanceHypotenuse = Math.sqrt(
-      Math.pow(distanceX, 2) + Math.pow(distanceY, 2)
-    );
-    console.log(distanceHypotenuse);
+    console.log(this.DistanceX);
+    console.log(this.DistanceY);
+    console.log(this.DistanceHypotenuse);
   }
 
   public get DistanceX(){
-    return 
+    return this.end.x - this.start.x
+  }
+
+  public get DistanceY(){
+    return this.end.y - this.start.y
+  }
+
+  public get DistanceHypotenuse(){
+    return  Math.sqrt(
+      Math.pow(this.DistanceX, 2) + Math.pow(this.DistanceY, 2)
+    )
   }
 }
