@@ -7,6 +7,7 @@ import { TablicaComponent } from './tablica/tablica.component';
 import { Test5Component } from './test5/test5.component';
 import { Test6Component } from './test6/test6.component';
 import { Test7Component } from './test7/test7.component';
+import { Test8Component } from './test8/test8.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
    { path: 'test5', component: Test5Component },
    { path: 'test6', component: Test6Component },
    { path: 'test7', component: Test7Component },
+   { path: 'test8', component: Test8Component },
   { path: 'tablica', component: TablicaComponent, outlet: 'sidebar' },
 ];
 
