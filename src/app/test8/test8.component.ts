@@ -46,9 +46,6 @@ export class Line{
 
 export class Triangle {
   constructor(private start: Point, private end: Point) {
-    // console.log(this.DistanceX);
-    // console.log(this.DistanceY);
-    // console.log(this.DistanceHypotenuse);`
   }
 
   public get PointRightAngle() {
@@ -57,26 +54,15 @@ export class Triangle {
     return new Point(x, y);
   }
 
-  public get DistanceX() {
-    return this.end.x - this.start.x;
-  }
-
-  public get DistanceY() {
-    return this.end.y - this.start.y;
-  }
-
-  public get DistanceHypotenuse() {
-    return Math.sqrt(Math.pow(this.DistanceX, 2) + Math.pow(this.DistanceY, 2));
+  public get Hypotenuse() {
+    let dist=new Line(this.start, this.end)
+    return dist.Distance;
   }
 
   public get angleOne() {
     let rightAngleX = this.end.x - this.PointRightAngle.x;
     let rightAngleY = this.PointRightAngle.y - this.start.y;
-    let cosAngle = rightAngleY / this.DistanceHypotenuse;
-    // console.log(rightAngleX);
-    // console.log(rightAngleY);
-    // console.log(cosAngle);
-
+    let cosAngle = rightAngleY / this.Hypotenuse;
     return (Math.acos(cosAngle) * 200) / Math.PI;
   }
 }
