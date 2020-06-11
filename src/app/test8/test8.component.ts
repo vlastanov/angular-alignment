@@ -20,7 +20,7 @@ export class Test8Component implements OnInit {
 
     let triangle1 = new Triangle(start, end);
 
-    console.log(triangle1.angleOne);
+    console.log(triangle1.angleVertical);
   }
 }
 
@@ -46,9 +46,10 @@ export class Line{
 
 export class Triangle {
   constructor(private start: Point, private end: Point) {
+    console.log(this.CatetHorizontal)
   }
 
-  public get PointRightAngle() {
+  private get PointRightAngle() {
     let x = this.end.x;
     let y = this.start.y;
     return new Point(x, y);
@@ -59,10 +60,16 @@ export class Triangle {
     return dist.Distance;
   }
 
-  public get angleOne() {
-    let rightAngleX = this.end.x - this.PointRightAngle.x;
-    let rightAngleY = this.PointRightAngle.y - this.start.y;
-    let cosAngle = rightAngleY / this.Hypotenuse;
+  public get CatetVertical(){
+    return this.end.y - this.PointRightAngle.y
+  }
+
+  public get CatetHorizontal(){
+    return this.PointRightAngle.x-this.start.x
+  }
+
+  public get angleVertical() {
+    let cosAngle = this.CatetVertical / this.Hypotenuse;
     return (Math.acos(cosAngle) * 200) / Math.PI;
   }
 }
