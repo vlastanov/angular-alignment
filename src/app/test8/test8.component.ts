@@ -13,14 +13,12 @@ export class Test8Component implements OnInit {
   }
 
   method() {
-    let startX = "8547251.3163";
-    let startY = "4554911.912";
-    let endX = "8547258.1907";
-    let endY = "4554925.707";
+    let start=new Point(+"8547251.3163",+"4554911.912")
+    let end=new Point(+"8547258.1907",+"4554925.707")
 
-    let deltaX = +endX - +startX;
+    let deltaX = end.x - start.x;
     console.log(deltaX);
-    let deltaY = +endY - +startY;
+    let deltaY = end.y - start.y;
     console.log(deltaY);
 
     let distanceHypotenuse = Math.sqrt(
@@ -29,9 +27,9 @@ export class Test8Component implements OnInit {
     console.log(distanceHypotenuse);
 
 
-    let rightAngleX = +endX - +endX;
+    let rightAngleX = end.x - end.x;
     console.log(rightAngleX);
-    let rightAngleY = +endY - +startY;
+    let rightAngleY = end.y - start.y;
     console.log(rightAngleY);
     let cosAngle = rightAngleY / distanceHypotenuse;
     console.log(cosAngle);
@@ -40,4 +38,8 @@ export class Test8Component implements OnInit {
     console.log(angle)
 
   }
+}
+
+export class Point{
+  constructor(public x:number, public y:number){}
 }
