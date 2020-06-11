@@ -17,12 +17,12 @@ export class Test8Component implements OnInit {
     let two = new Point(+"8547258.1907", +"4554925.707");
     let three = new Point(+"8547266.4911", +"4554908.0191");
     let four = new Point(+"8547277.1857", +"4554902.6646");
-    let triangle1 = new RightTriangle(one, two);
+    // let triangle1 = new RightTriangle(one, two);
     let triangle2 = new RightTriangle(two, three);
     let triangle3 = new RightTriangle(three, four);
-    // console.log(triangle1.angleVertical + triangle2.angleVertical);
 
-    console.log(triangle2.angleVertical + triangle3.angleHorizontal + 100 );
+    console.log(triangle2.angleVertical);
+    console.log(triangle2.angleVertical + 100- triangle3.angleVertical+100);
   }
 }
 
@@ -73,11 +73,15 @@ export class RightTriangle {
   }
 
   public get angleVertical() {
-
-
     let cosAngle = this.CatetVertical / this.Hypotenuse;
-    let angle = (Math.acos(cosAngle) * 200) / Math.PI;
 
+    // if (this.end.y < this.start.y) {
+    //   let angle = (Math.asin(cosAngle) * 200) / Math.PI;
+    //   console.log(angle)
+    //   return angle+100;
+    // }
+
+    let angle = (Math.acos(cosAngle) * 200) / Math.PI;
     return angle;
   }
 
