@@ -18,9 +18,9 @@ export class Test8Component implements OnInit {
 
     let triangle1 = new Triangle(start, end);
 
-    let rightAngleX = end.x - end.x;
+    let rightAngleX = end.x - triangle1.PointRightAngle.x;
     console.log(rightAngleX);
-    let rightAngleY = end.y - start.y;
+    let rightAngleY = triangle1.PointRightAngle.y - start.y;
     console.log(rightAngleY);
     let cosAngle = rightAngleY / triangle1.DistanceHypotenuse;
     console.log(cosAngle);
@@ -39,6 +39,13 @@ export class Triangle {
     console.log(this.DistanceX);
     console.log(this.DistanceY);
     console.log(this.DistanceHypotenuse);
+  }
+
+  public get PointRightAngle(){
+
+    let x = this.end.x;
+    let y = this.start.y;
+    return new Point(x,y)
   }
 
   public get DistanceX(){
