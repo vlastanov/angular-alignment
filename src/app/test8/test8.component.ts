@@ -13,19 +13,10 @@ export class Test8Component implements OnInit {
   }
 
   method() {
-    let start=new Point(+"8547251.3163",+"4554911.912")
-    let end=new Point(+"8547258.1907",+"4554925.707")
+    let start = new Point(+"8547251.3163", +"4554911.912");
+    let end = new Point(+"8547258.1907", +"4554925.707");
 
-    let deltaX = end.x - start.x;
-    console.log(deltaX);
-    let deltaY = end.y - start.y;
-    console.log(deltaY);
-
-    let distanceHypotenuse = Math.sqrt(
-      Math.pow(deltaX, 2) + Math.pow(deltaY, 2)
-    );
-    console.log(distanceHypotenuse);
-
+    let triangle1 = new Triangle(start, end);
 
     let rightAngleX = end.x - end.x;
     console.log(rightAngleX);
@@ -34,12 +25,29 @@ export class Test8Component implements OnInit {
     let cosAngle = rightAngleY / distanceHypotenuse;
     console.log(cosAngle);
 
-    let angle=Math.acos(cosAngle)*200/Math.PI
-    console.log(angle)
-
+    let angle = (Math.acos(cosAngle) * 200) / Math.PI;
+    console.log(angle);
   }
 }
 
-export class Point{
-  constructor(public x:number, public y:number){}
+export class Point {
+  constructor(public x: number, public y: number) {}
+}
+
+export class Triangle {
+  constructor(private start: Point, private end: Point) {
+    let distanceX = end.x - start.x;
+    console.log(distanceX);
+    let distanceY = end.y - start.y;
+    console.log(distanceY);
+
+    let distanceHypotenuse = Math.sqrt(
+      Math.pow(distanceX, 2) + Math.pow(distanceY, 2)
+    );
+    console.log(distanceHypotenuse);
+  }
+
+  public get DistanceX(){
+    return 
+  }
 }
