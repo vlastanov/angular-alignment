@@ -23,7 +23,6 @@ export class Test8Component implements OnInit {
     let o8 = new Point(+"88.9887", +"43.4413");
     let o9 = new Point(+"62.8188", +"50.0463");
 
-    let four = new Point(+"8547277.1857", +"4554902.6646");
     let tr1 = new RightTriangle(o1, o2);
     let tr2 = new RightTriangle(o2, o3);
     let tr3 = new RightTriangle(o3, o4);
@@ -36,14 +35,13 @@ export class Test8Component implements OnInit {
 
     let po1 = new PoligonVrah(tr1, tr2);
     let po2 = new PoligonVrah(tr2, tr3);
-    let po3 = new PoligonVrah(tr3, tr3);
-    let po4 = new PoligonVrah(tr3, tr4);
-    let po5 = new PoligonVrah(tr4, tr5);
-    let po6 = new PoligonVrah(tr5, tr6);
-    let po7 = new PoligonVrah(tr6, tr7);
-    let po8 = new PoligonVrah(tr7, tr8);
-    let po9 = new PoligonVrah(tr8, tr9);
-    let po10 = new PoligonVrah(tr9, tr1);
+    let po3 = new PoligonVrah(tr3, tr4);
+    let po4 = new PoligonVrah(tr4, tr5);
+    let po5 = new PoligonVrah(tr5, tr6);
+    let po6 = new PoligonVrah(tr6, tr7);
+    let po7 = new PoligonVrah(tr7, tr8);
+    let po8 = new PoligonVrah(tr8, tr9);
+    let po9 = new PoligonVrah(tr9, tr1);
   }
 }
 
