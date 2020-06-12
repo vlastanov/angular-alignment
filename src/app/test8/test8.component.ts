@@ -15,7 +15,7 @@ export class Test8Component implements OnInit {
   method() {
     let one = new Point(+"0", +"0");
     let two = new Point(+"5", +"-5");
-    let three = new Point(+"13", +"7");
+    let three = new Point(+"13", +"-7");
     let four = new Point(+"8547277.1857", +"4554902.6646");
     let tr1 = new RightTriangle(one, two);
     let tr2 = new RightTriangle(two, three);
@@ -95,23 +95,43 @@ export class RightTriangle {
 export class PoligonVrah {
   constructor(public first: RightTriangle, public second: RightTriangle) {
     if (this.first.UpDirection) {
-      if (!this.second.UpDirection) {
-        let polAngle = this.first.angleVertical + this.second.angleVertical;
-        console.log(polAngle);
-      } else {
-        if (this.first.angleHorizontal >= this.second.angleHorizontal) {
-          let polAngle =
-            this.first.angleVertical + this.second.angleHorizontal + 100;
-          console.log(polAngle);
-        } else {
-          let polAngle =
-            this.first.angleHorizontal + this.second.angleVertical + 100;
-          console.log(polAngle);
-        }
-      }
+    this.checkQuadrant(!this.first.UpDirection)
+      // if (!this.second.UpDirection) {
+      //   let polAngle = this.first.angleVertical + this.second.angleVertical;
+      //   console.log(polAngle);
+      // } else {
+      //   if (this.first.angleHorizontal >= this.second.angleHorizontal) {
+      //     let polAngle =
+      //       this.first.angleVertical + this.second.angleHorizontal + 100;
+      //     console.log(polAngle);
+      //   } else {
+      //     let polAngle =
+      //       this.first.angleHorizontal + this.second.angleVertical + 100;
+      //     console.log(polAngle);
+      //   }
+      // }
     }
     else{
-      if (this.second.UpDirection) {
+      this.checkQuadrant(this.first.UpDirection)
+      // if (this.second.UpDirection) {
+      //   let polAngle = this.first.angleVertical + this.second.angleVertical;
+      //   console.log(polAngle);
+      // } else {
+      //   if (this.first.angleHorizontal >= this.second.angleHorizontal) {
+      //     let polAngle =
+      //       this.first.angleVertical + this.second.angleHorizontal + 100;
+      //     console.log(polAngle);
+      //   } else {
+      //     let polAngle =
+      //       this.first.angleHorizontal + this.second.angleVertical + 100;
+      //     console.log(polAngle);
+      //   }
+      // }
+    }
+  }
+
+  checkQuadrant(secondUpDirection:boolean){
+    if (secondUpDirection) {
         let polAngle = this.first.angleVertical + this.second.angleVertical;
         console.log(polAngle);
       } else {
@@ -125,6 +145,5 @@ export class PoligonVrah {
           console.log(polAngle);
         }
       }
-    }
   }
 }
