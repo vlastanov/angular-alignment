@@ -13,9 +13,9 @@ export class Test8Component implements OnInit {
   }
 
   method() {
-    let one = new Point(+"0", +"2");
+    let one = new Point(+"0", +"8");
     let two = new Point(+"5", +"5");
-    let three = new Point(+"-3", +"17");
+    let three = new Point(+"-3", +"3");
     let four = new Point(+"8547277.1857", +"4554902.6646");
     let tr1 = new RightTriangle(one, two);
     let tr2 = new RightTriangle(two, three);
@@ -114,7 +114,8 @@ export class RightTriangle {
 export class PoligonVrah {
   angle;
   constructor(public first: RightTriangle, public second: RightTriangle) {
-    this.firstUpLeft();
+    // this.firstUpLeft();
+    this.firstDownLeft();
   }
 
   firstUpLeft() {
@@ -134,6 +135,30 @@ export class PoligonVrah {
       );
     } else if (this.second.Quadrant === "fourth") {
       this.angle = this.first.angleHorizontal + this.second.angleHorizontal;
+    }
+    console.log(this.angle);
+  }
+
+  firstDownLeft() {
+    if (this.second.Quadrant === "first") {
+      this.angle = this.first.angleVertical + this.second.angleVertical;
+    } else if (this.second.Quadrant === "second") {
+      if (this.second.horizontalAngleLess45) {
+        console.log(this.second.angleHorizontal);
+        this.angle =
+          this.first.angleVertical + 100 + this.second.angleHorizontal;
+      } else {
+        this.angle =
+          this.first.angleHorizontal + 100 + this.second.angleVertical;
+      }
+    } else if (this.second.Quadrant === "third") {
+      this.angle = Math.abs(
+        this.first.angleHorizontal + this.second.angleHorizontal
+      );
+    } else if (this.second.Quadrant === "fourth") {
+      this.angle = Math.abs(
+        this.first.angleHorizontal + this.second.angleHorizontal
+      );
     }
     console.log(this.angle);
   }
