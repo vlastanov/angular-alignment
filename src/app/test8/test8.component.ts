@@ -53,10 +53,8 @@ export class RightTriangle {
     return this.end.y>=this.start.y
   }
 
-  private get PointRightAngle() {
-    let x = this.end.x;
-    let y = this.start.y;
-    return new Point(x, y);
+  private get RightAngleDown() {
+    return new Point(this.end.x,this.start.y);
   }
 
   public get CatetVertical() {
@@ -65,9 +63,9 @@ export class RightTriangle {
 
   public get CatetHorizontal() {
     if (this.end.y < this.start.y) {
-      return this.end.x - this.PointRightAngle.x;
+      return this.end.x - this.RightAngleDown.x;
     }
-    return this.PointRightAngle.x - this.start.x;
+    return this.RightAngleDown.x - this.start.x;
   }
 
   public get angleVertical() {
