@@ -15,7 +15,7 @@ export class Test8Component implements OnInit {
   method() {
     let one = new Point(+"0", +"0");
     let two = new Point(+"5", +"-5");
-    let three = new Point(+"13", +"-7");
+    let three = new Point(+"-1", +"-2");
     let four = new Point(+"8547277.1857", +"4554902.6646");
     let tr1 = new RightTriangle(one, two);
     let tr2 = new RightTriangle(two, three);
@@ -44,7 +44,7 @@ export class Line {
 }
 
 export class RightTriangle {
-  constructor(private start: Point, private end: Point) {}
+  constructor(public start: Point, public end: Point) {}
 
   get UpDirection() {
     return this.end.y >= this.start.y;
@@ -95,16 +95,21 @@ export class RightTriangle {
 export class PoligonVrah {
   constructor(public first: RightTriangle, public second: RightTriangle) {
     if (this.first.UpDirection) {
-      this.checkQuadrant(!this.first.UpDirection);
+      this.checkQuadrant(!this.second.UpDirection);
     } else {
-      this.checkQuadrant(this.first.UpDirection);
+      this.checkQuadrant(this.second.UpDirection);
     }
   }
 
   checkQuadrant(secondUpDirection: boolean) {
     if (secondUpDirection) {
-      let polAngle = this.first.angleVertical + this.second.angleVertical;
-      console.log(polAngle);
+      if (this.second.end.x >= this.second.start.x) {
+        let polAngle = this.first.angleVertical + this.second.angleVertical;
+        console.log(polAngle);
+      } else {
+        let angle = this.first.angleHorizontal - this.second.angleHorizontal;
+        console.log(angle);
+      }
     } else {
       if (this.first.angleHorizontal >= this.second.angleHorizontal) {
         let polAngle =
