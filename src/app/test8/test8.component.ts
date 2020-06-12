@@ -114,9 +114,11 @@ export class RightTriangle {
 export class PoligonVrah {
   angle;
   constructor(public first: RightTriangle, public second: RightTriangle) {
-    // this.firstUpLeft();
-    // this.firstDownLeft();
+    this.firstUpLeft();
+    this.firstDownLeft();
     this.firstDownRight();
+    this.firstUpRight()
+    console.log(this.angle);
   }
 
   firstUpLeft() {
@@ -137,7 +139,6 @@ export class PoligonVrah {
     } else if (this.second.Quadrant === "fourth") {
       this.angle = this.first.angleHorizontal + this.second.angleHorizontal;
     }
-    console.log(this.angle);
   }
 
   firstDownLeft() {
@@ -161,7 +162,6 @@ export class PoligonVrah {
         this.first.angleHorizontal - this.second.angleHorizontal
       );
     }
-    console.log(this.angle);
   }
 
   firstDownRight() {
@@ -182,7 +182,6 @@ export class PoligonVrah {
     } else if (this.second.Quadrant === "fourth") {
       this.angle = this.first.angleVertical + this.second.angleVertical;
     }
-    console.log(this.angle);
   }
 
   firstUpRight() {
@@ -204,6 +203,5 @@ export class PoligonVrah {
           this.first.angleHorizontal + 100 + this.second.angleVertical;
       }
     }
-    console.log(this.angle);
   }
 }
