@@ -17,11 +17,11 @@ export class Test8Component implements OnInit {
     let two = new Point(+"5", +"5");
     let three = new Point(+"13", +"1");
     let four = new Point(+"8547277.1857", +"4554902.6646");
-    // let triangle1 = new RightTriangle(one, two);
-    let triangle2 = new RightTriangle(two, three);
+    let triangle1 = new RightTriangle(one, two);
+    triangle1.RightAngleDown
     // let triangle3 = new RightTriangle(three, four);
 
-    console.log(triangle2.angleVertical);
+    // console.log(triangle2.angleVertical);
     // console.log(triangle2.angleVertical + 100- triangle3.angleVertical+100);
   }
 }
@@ -53,8 +53,12 @@ export class RightTriangle {
     return this.end.y>=this.start.y
   }
 
-  private get RightAngleDown() {
+  public get RightAngleDown() {
     return new Point(this.end.x,this.start.y);
+  }
+
+  public get RightAngleUp() {
+    return new Point(this.start.x,this.end.y);
   }
 
   public get CatetVertical() {
