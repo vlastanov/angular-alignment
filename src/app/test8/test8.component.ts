@@ -15,14 +15,11 @@ export class Test8Component implements OnInit {
   method() {
     let one = new Point(+"0", +"0");
     let two = new Point(+"5", +"5");
-    let three = new Point(+"13", +"1");
+    let three = new Point(+"13", +"9");
     let four = new Point(+"8547277.1857", +"4554902.6646");
-    let triangle1 = new RightTriangle(one, two);
-    triangle1.RightAngleDown;
-    // let triangle3 = new RightTriangle(three, four);
-
-    // console.log(triangle2.angleVertical);
-    // console.log(triangle2.angleVertical + 100- triangle3.angleVertical+100);
+    let tr1 = new RightTriangle(one, two);
+    let tr2 = new RightTriangle(two, three);
+    let polVrah = new PoligonVrah(tr1, tr2);
   }
 }
 
@@ -57,14 +54,14 @@ export class RightTriangle {
     if (this.UpDirection) {
       return new Point(this.end.x, this.start.y);
     }
-      return new Point(this.start.x, this.end.y);
+    return new Point(this.start.x, this.end.y);
   }
 
   public get RightAngleUp() {
     if (this.UpDirection) {
       return new Point(this.start.x, this.end.y);
     }
-      return new Point(this.end.x, this.start.y);
+    return new Point(this.end.x, this.start.y);
   }
 
   public get CatetVertical() {
@@ -72,22 +69,41 @@ export class RightTriangle {
   }
 
   public get CatetHorizontal() {
-    return this.RightAngleDown.x - this.start.x;
+    return Math.abs(this.end.x - this.start.x);
   }
 
   public get angleVertical() {
     let cosAngle = this.CatetVertical / this.Hypotenuse;
     let angle = (Math.acos(cosAngle) * 200) / Math.PI;
+    console.log(angle);
     return angle;
+  }
+
+  public get angleHorizontal() {
+    let cosAngle = this.CatetHorizontal / this.Hypotenuse;
+    let angle = (Math.acos(cosAngle) * 200) / Math.PI;
+    // console.log(angle)
+    return (Math.acos(cosAngle) * 200) / Math.PI;
   }
 
   public get Hypotenuse() {
     let dist = new Line(this.start, this.end);
     return dist.Distance;
   }
+}
 
-  public get angleHorizontal() {
-    let cosAngle = this.CatetHorizontal / this.Hypotenuse;
-    return (Math.acos(cosAngle) * 200) / Math.PI;
+export class PoligonVrah {
+  constructor(public first: RightTriangle, public second: RightTriangle) {
+    if (this.first.UpDirection) {
+      if (!this.second.UpDirection) {
+        let polAngle = this.first.angleVertical + this.second.angleVertical;
+        console.log(polAngle);
+      } else {
+        if (this.first.angleHorizontal > this.second.angleHorizontal) {
+          let polAngle = this.first.angleVertical + this.second.angleVertical;
+          console.log(polAngle);
+        }
+      }
+    }
   }
 }
