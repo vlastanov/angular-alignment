@@ -13,7 +13,7 @@ export class Test8Component implements OnInit {
   }
 
   method() {
-    let one = new Point(+"0", +"8");
+    let one = new Point(+"10", +"2");
     let two = new Point(+"5", +"5");
     let three = new Point(+"-3", +"17");
     let four = new Point(+"8547277.1857", +"4554902.6646");
@@ -115,7 +115,8 @@ export class PoligonVrah {
   angle;
   constructor(public first: RightTriangle, public second: RightTriangle) {
     // this.firstUpLeft();
-    this.firstDownLeft();
+    // this.firstDownLeft();
+    this.firstDownRight();
   }
 
   firstUpLeft() {
@@ -159,6 +160,49 @@ export class PoligonVrah {
       this.angle = Math.abs(
         this.first.angleHorizontal - this.second.angleHorizontal
       );
+    }
+    console.log(this.angle);
+  }
+
+  firstDownRight() {
+    if (this.second.Quadrant === "first") {
+      this.angle = Math.abs(
+        this.first.angleHorizontal - this.second.angleHorizontal
+      );
+    } else if (this.second.Quadrant === "second") {
+      this.angle = this.first.angleHorizontal + this.second.angleHorizontal;
+    } else if (this.second.Quadrant === "third") {
+      if (this.second.horizontalAngleLess45) {
+        this.angle =
+          this.first.angleVertical + 100 + this.second.angleHorizontal;
+      } else {
+        this.angle =
+          this.first.angleHorizontal + 100 + this.second.angleVertical;
+      }
+    } else if (this.second.Quadrant === "fourth") {
+      this.angle = this.first.angleVertical + this.second.angleVertical;
+    }
+    console.log(this.angle);
+  }
+
+  firstUpRight() {
+    if (this.second.Quadrant === "first") {
+      this.angle = this.first.angleHorizontal + this.second.angleHorizontal;     
+    } else if (this.second.Quadrant === "second") {
+       this.angle = Math.abs(
+        this.first.angleHorizontal - this.second.angleHorizontal
+      );
+    } else if (this.second.Quadrant === "third") {
+       this.angle = this.first.angleVertical + this.second.angleVertical;
+     
+    } else if (this.second.Quadrant === "fourth") {
+      if (this.second.horizontalAngleLess45) {
+        this.angle =
+          this.first.angleVertical + 100 + this.second.angleHorizontal;
+      } else {
+        this.angle =
+          this.first.angleHorizontal + 100 + this.second.angleVertical;
+      }
     }
     console.log(this.angle);
   }
