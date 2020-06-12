@@ -112,8 +112,12 @@ export class RightTriangle {
 }
 
 export class PoligonVrah {
-  angle
+  angle;
   constructor(public first: RightTriangle, public second: RightTriangle) {
+    this.firstUpLeft();
+  }
+
+  firstUpLeft() {
     if (this.second.Quadrant === "first") {
       if (this.second.horizontalAngleLess45) {
         this.angle =
@@ -122,13 +126,15 @@ export class PoligonVrah {
         this.angle =
           this.first.angleHorizontal + 100 + this.second.angleVertical;
       }
-    } else if (this.second.Quadrant === "second") {   
-       this.angle = this.first.angleVertical + this.second.angleVertical;    
+    } else if (this.second.Quadrant === "second") {
+      this.angle = this.first.angleVertical + this.second.angleVertical;
     } else if (this.second.Quadrant === "third") {
-      this.angle =Math.abs( this.first.angleVertical - this.second.angleVertical);
+      this.angle = Math.abs(
+        this.first.angleVertical - this.second.angleVertical
+      );
     } else if (this.second.Quadrant === "fourth") {
       this.angle = this.first.angleHorizontal + this.second.angleHorizontal;
     }
-    console.log(this.angle)
+    console.log(this.angle);
   }
 }
