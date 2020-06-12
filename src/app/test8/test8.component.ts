@@ -14,7 +14,7 @@ export class Test8Component implements OnInit {
 
   method() {
     let one = new Point(+"0", +"2");
-    let two = new Point(+"5", +"-5");
+    let two = new Point(+"5", +"5");
     let three = new Point(+"13", +"7");
     let four = new Point(+"8547277.1857", +"4554902.6646");
     let tr1 = new RightTriangle(one, two);
@@ -68,9 +68,9 @@ export class RightTriangle {
 
     return quadrant;
   }
-  
+
   get horizontalAngleLess45() {
-    return this.angleHorizontal<45
+    return this.angleHorizontal < 45;
   }
 
   public get RightAngleDown() {
@@ -113,32 +113,28 @@ export class RightTriangle {
 
 export class PoligonVrah {
   constructor(public first: RightTriangle, public second: RightTriangle) {
-    if (this.first.UpDirection) {
-      this.checkQuadrant(!this.second.UpDirection);
-    } else {
-      this.checkQuadrant(this.second.UpDirection);
+    if (this.second.Quadrant === "first") {
+      if (this.second.horizontalAngleLess45) {
+        let angle =
+          this.first.angleVertical + 100 + this.second.angleHorizontal;
+      } else {
+        let angle =
+          this.first.angleHorizontal + 100 + this.second.angleVertical;
+      }
+    } else if (this.second.Quadrant === "second") {
+      let angle = this.first.angleVertical + this.second.angleVertical;
+    } else if (this.second.Quadrant === "third") {
+      let angle = this.first.angleHorizontal - this.second.angleVertical;
+    } else if (this.second.Quadrant === "fourth") {
+      let angle = this.first.angleHorizontal + this.second.angleVertical;
     }
   }
 
   checkQuadrant(secondUpDirection: boolean) {
     if (secondUpDirection) {
-      if (this.second.end.x >= this.second.start.x) {
-        let polAngle = this.first.angleVertical + this.second.angleVertical;
-        console.log(polAngle);
-      } else {
-        let angle = this.first.angleHorizontal - this.second.angleHorizontal;
-        console.log(angle);
+      if (this.second.Quadrant === "first") {
       }
     } else {
-      if (this.first.angleHorizontal >= this.second.angleHorizontal) {
-        let polAngle =
-          this.first.angleVertical + this.second.angleHorizontal + 100;
-        console.log(polAngle);
-      } else {
-        let polAngle =
-          this.first.angleHorizontal + this.second.angleVertical + 100;
-        console.log(polAngle);
-      }
     }
   }
 }
