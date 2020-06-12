@@ -68,6 +68,10 @@ export class RightTriangle {
 
     return quadrant;
   }
+  
+  get horizontalAngleLess45() {
+    return this.angleHorizontal<45
+  }
 
   public get RightAngleDown() {
     if (this.UpDirection) {
