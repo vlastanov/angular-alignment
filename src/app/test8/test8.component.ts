@@ -15,7 +15,7 @@ export class Test8Component implements OnInit {
   method() {
     let one = new Point(+"0", +"2");
     let two = new Point(+"5", +"5");
-    let three = new Point(+"-3", +"3");
+    let three = new Point(+"-3", +"17");
     let four = new Point(+"8547277.1857", +"4554902.6646");
     let tr1 = new RightTriangle(one, two);
     let tr2 = new RightTriangle(two, three);
@@ -127,7 +127,7 @@ export class PoligonVrah {
     } else if (this.second.Quadrant === "third") {
       this.angle =Math.abs( this.first.angleVertical - this.second.angleVertical);
     } else if (this.second.Quadrant === "fourth") {
-      this.angle = this.first.angleHorizontal + this.second.angleVertical;
+      this.angle = this.first.angleHorizontal + this.second.angleHorizontal;
     }
     console.log(this.angle)
   }
