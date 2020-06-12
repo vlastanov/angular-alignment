@@ -18,7 +18,7 @@ export class Test8Component implements OnInit {
     let three = new Point(+"13", +"1");
     let four = new Point(+"8547277.1857", +"4554902.6646");
     let triangle1 = new RightTriangle(one, two);
-    triangle1.RightAngleDown
+    triangle1.RightAngleDown;
     // let triangle3 = new RightTriangle(three, four);
 
     // console.log(triangle2.angleVertical);
@@ -49,16 +49,22 @@ export class Line {
 export class RightTriangle {
   constructor(private start: Point, private end: Point) {}
 
-  get UpDirection(){
-    return this.end.y>=this.start.y
+  get UpDirection() {
+    return this.end.y >= this.start.y;
   }
 
   public get RightAngleDown() {
-    return new Point(this.end.x,this.start.y);
+    if (this.UpDirection) {
+      return new Point(this.end.x, this.start.y);
+    }
+      return new Point(this.start.x, this.end.y);
   }
 
   public get RightAngleUp() {
-    return new Point(this.start.x,this.end.y);
+    if (this.UpDirection) {
+      return new Point(this.start.x, this.end.y);
+    }
+      return new Point(this.end.x, this.start.y);
   }
 
   public get CatetVertical() {
@@ -66,9 +72,6 @@ export class RightTriangle {
   }
 
   public get CatetHorizontal() {
-    if (this.end.y < this.start.y) {
-      return this.end.x - this.RightAngleDown.x;
-    }
     return this.RightAngleDown.x - this.start.x;
   }
 
