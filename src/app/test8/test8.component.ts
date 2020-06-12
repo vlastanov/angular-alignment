@@ -13,9 +13,9 @@ export class Test8Component implements OnInit {
   }
 
   method() {
-    let one = new Point(+"0", +"0");
+    let one = new Point(+"0", +"2");
     let two = new Point(+"5", +"-5");
-    let three = new Point(+"-1", +"-2");
+    let three = new Point(+"13", +"7");
     let four = new Point(+"8547277.1857", +"4554902.6646");
     let tr1 = new RightTriangle(one, two);
     let tr2 = new RightTriangle(two, three);
@@ -50,6 +50,25 @@ export class RightTriangle {
     return this.end.y >= this.start.y;
   }
 
+  get LeftDirection() {
+    return this.end.x >= this.start.x;
+  }
+
+  get Quadrant() {
+    let quadrant = "first";
+    if (this.UpDirection && this.LeftDirection) {
+      quadrant = "first";
+    } else if (!this.UpDirection && this.LeftDirection) {
+      quadrant = "second";
+    } else if (!this.UpDirection && !this.LeftDirection) {
+      quadrant = "third";
+    } else if (this.UpDirection && !this.LeftDirection) {
+      quadrant = "fourth";
+    }
+
+    return quadrant;
+  }
+
   public get RightAngleDown() {
     if (this.UpDirection) {
       return new Point(this.end.x, this.start.y);
@@ -74,15 +93,11 @@ export class RightTriangle {
 
   public get angleVertical() {
     let cosAngle = this.CatetVertical / this.Hypotenuse;
-    let angle = (Math.acos(cosAngle) * 200) / Math.PI;
-    console.log(angle);
-    return angle;
+    return (Math.acos(cosAngle) * 200) / Math.PI;
   }
 
   public get angleHorizontal() {
     let cosAngle = this.CatetHorizontal / this.Hypotenuse;
-    let angle = (Math.acos(cosAngle) * 200) / Math.PI;
-    // console.log(angle)
     return (Math.acos(cosAngle) * 200) / Math.PI;
   }
 
