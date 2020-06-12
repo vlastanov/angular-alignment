@@ -114,10 +114,15 @@ export class RightTriangle {
 export class PoligonVrah {
   angle;
   constructor(public first: RightTriangle, public second: RightTriangle) {
+    if(this.first.Quadrant === 'first'){
     this.firstUpLeft();
+    }else  if(this.first.Quadrant === 'second'){
     this.firstDownLeft();
+    } else if(this.first.Quadrant === 'third'){
     this.firstDownRight();
+    }else if(this.first.Quadrant === 'fourth'){
     this.firstUpRight()
+    }
     console.log(this.angle);
   }
 
